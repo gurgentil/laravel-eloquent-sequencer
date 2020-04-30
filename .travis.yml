@@ -12,7 +12,8 @@ env:
 before_script:
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
-  - cat > tests/temp/database.sqlite
+  - cd ./tests/temp
+  - touch database.sqlite
 
 script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
