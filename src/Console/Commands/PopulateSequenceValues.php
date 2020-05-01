@@ -54,7 +54,7 @@ class PopulateSequenceValues extends Command
 
             $columnName = ($class)::getSequenceColumnName();
 
-            $modelsToUpdate = $models->whereNull($columnName);
+            $modelsToUpdate = $models->where($columnName, null);
 
             $modelsToUpdate->each(function ($model) use ($columnName) {
                 $model->withoutSequencing()->update([
