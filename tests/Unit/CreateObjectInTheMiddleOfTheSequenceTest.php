@@ -12,11 +12,11 @@ class CreateObjectInTheMiddleOfTheSequenceTest extends TestCase
     {
         $group = Factory::of('Group')->create();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
 
-        $newItem = Factory::of('item')->create([
+        $newItem = Factory::of('Item')->create([
             'position' => 1,
             'group_id' => $group->id,
         ]);
@@ -32,11 +32,11 @@ class CreateObjectInTheMiddleOfTheSequenceTest extends TestCase
     {
         $group = Factory::of('Group')->create();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
 
-        $newItem = Factory::of('item')->create([
+        $newItem = Factory::of('Item')->create([
             'position' => 2,
             'group_id' => $group->id,
         ]);
@@ -52,11 +52,11 @@ class CreateObjectInTheMiddleOfTheSequenceTest extends TestCase
     {
         $group = Factory::of('Group')->create();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
 
-        $newItem = Factory::of('item')->create([
+        $newItem = Factory::of('Item')->create([
             'position' => 3,
             'group_id' => $group->id,
         ]);
@@ -72,11 +72,11 @@ class CreateObjectInTheMiddleOfTheSequenceTest extends TestCase
     {
         $group = Factory::of('Group')->create();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
 
-        $newItem = Factory::of('item')->create([
+        $newItem = Factory::of('Item')->create([
             'position' => 4,
             'group_id' => $group->id,
         ]);
