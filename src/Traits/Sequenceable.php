@@ -321,7 +321,7 @@ trait Sequenceable
 
         return static::where($this->getSequenceQueryConstraints())
             ->select($this->getSequenceQuerySelectColumns())
-            ->whereNotNull($columnName)
+            ->where($columnName, '!=', null)
             ->orderBy($columnName)
             ->get();
     }

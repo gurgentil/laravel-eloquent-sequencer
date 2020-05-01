@@ -54,7 +54,7 @@ class FlushSequenceValues extends Command
 
             $columnName = ($class)::getSequenceColumnName();
 
-            $modelsToUpdate = $models->whereNotNull($columnName);
+            $modelsToUpdate = $models->where($columnName, '!=', null);
 
             $modelsToUpdate->each(function ($model) use ($columnName) {
                 $model->withoutSequencing()->update([
