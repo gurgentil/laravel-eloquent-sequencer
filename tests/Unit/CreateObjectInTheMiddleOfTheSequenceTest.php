@@ -10,7 +10,7 @@ class CreateObjectInTheMiddleOfTheSequenceTest extends TestCase
     /** @test */
     public function it_creates_an_object_with_sequence_value_equal_to_1_and_move_the_group_around()
     {
-        $group = Factory::of('group')->create();
+        $group = Factory::of('Group')->create();
 
         $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
         $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
@@ -30,7 +30,7 @@ class CreateObjectInTheMiddleOfTheSequenceTest extends TestCase
     /** @test */
     public function it_creates_an_object_with_sequence_value_equal_to_2_and_move_the_group_around()
     {
-        $group = Factory::of('group')->create();
+        $group = Factory::of('Group')->create();
 
         $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
         $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
@@ -50,7 +50,7 @@ class CreateObjectInTheMiddleOfTheSequenceTest extends TestCase
     /** @test */
     public function it_creates_an_object_with_sequence_value_equal_to_3_and_move_the_group_around()
     {
-        $group = Factory::of('group')->create();
+        $group = Factory::of('Group')->create();
 
         $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
         $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
@@ -70,7 +70,7 @@ class CreateObjectInTheMiddleOfTheSequenceTest extends TestCase
     /** @test */
     public function it_creates_an_object_with_sequence_value_equal_to_4_and_move_the_group_around()
     {
-        $group = Factory::of('group')->create();
+        $group = Factory::of('Group')->create();
 
         $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
         $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
