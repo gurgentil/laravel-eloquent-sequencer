@@ -14,6 +14,13 @@ class TestCase extends OrchestraTestCase
         $this->setUpDatabase();
     }
 
+    public static function tearDownAfterClass(): void
+    {
+        parent::tearDownAfterClass();
+
+        static::resetDatabase();
+    }
+
     protected function getPackageProviders($app)
     {
         return [
@@ -27,24 +34,24 @@ class TestCase extends OrchestraTestCase
 
         $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',
-            'database' => $this->getTempDirectory() . '/database.sqlite',
+            'database' => static::getTempDirectory() . '/database.sqlite',
             'prefix' => '',
         ]);
     }
 
     protected function setUpDatabase()
     {
-        $this->resetDatabase();
+        static::resetDatabase();
 
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
     }
 
-    protected function resetDatabase()
+    protected static function resetDatabase()
     {
-        file_put_contents($this->getTempDirectory() . '/database.sqlite', null);
+        file_put_contents(static::getTempDirectory() . '/database.sqlite', null);
     }
 
-    protected function getTempDirectory(): string
+    protected static function getTempDirectory(): string
     {
         return __DIR__ . '/temp';
     }
