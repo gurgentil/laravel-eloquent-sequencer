@@ -67,11 +67,11 @@ class Task extends Model
 {
     use Sequenceable;
 
-    protected $fillable = [
+    protected static $fillable = [
         'position',
     ];
     
-    protected $sequenceableKeys = [
+    protected static $sequenceableKeys = [
         'task_list_id',
     ];
 
