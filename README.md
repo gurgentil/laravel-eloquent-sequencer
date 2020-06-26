@@ -67,7 +67,7 @@ class Task extends Model
 {
     use Sequenceable;
 
-    protected static $fillable = [
+    protected $fillable = [
         'position',
     ];
     
