@@ -28,12 +28,26 @@ return [
 ];
 ```
 
+You can allow/disallow null values by default in `config/eloquentsequencer.php`:
+
+```php
+return [
+    'allow_null' => true,
+];
+```
+
 ### Model configuration
 
 The `$sequenceable` attribute specifies the sequence column name for the model:
 
 ```php
 protected static $sequenceable = 'order';
+```
+
+The `$allowNull` attribute specifies if the sequence column will allow null values or not (this will take precedence over the default set in the config file). 
+
+```php
+protected static $allowNull = false;
 ```
 
 The relationship key(s) that will group the sequence items together:
@@ -43,6 +57,7 @@ protected static $sequenceableKeys = [
     'task_list_id',
 ];
 ```
+
 
 In the example above, a task list has many tasks.
 

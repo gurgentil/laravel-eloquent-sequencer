@@ -27,7 +27,7 @@ trait Sequenceable
         static::creating(function ($model) {
             $model->handleSequenceableCreate();
         });
-        
+
         static::updating(function ($model) {
             $model->handleSequenceableUpdate();
         });
@@ -81,10 +81,11 @@ trait Sequenceable
 
             return;
         }
-        
+
         $value = $this->getSequenceValue();
 
-        if (! $this->isDirty(static::getSequenceColumnName()) || is_null($value)) {
+        if ((! $this->isDirty(static::getSequenceColumnName()))
+            || (! static::getAllowNull() && is_null($value))) {
             return;
         }
 
@@ -107,12 +108,12 @@ trait Sequenceable
 
             return;
         }
-        
+
         $columnName = static::getSequenceColumnName();
 
         $objects = $this->getSequence()
             ->where($columnName, '>', $this->getSequenceValue());
-            
+
         static::decrementSequenceValues($objects);
     }
 
@@ -138,9 +139,13 @@ trait Sequenceable
         $newValue = $this->getSequenceValue();
         $originalValue = $this->getOriginalSequenceValue();
 
-        return $newValue <= 0
-            || ! is_null($originalValue) && $newValue > $this->getLastSequenceValue()
-            || is_null($originalValue) && $newValue > $this->getNextSequenceValue();
+        if (static::getAllowNull() && is_null($newValue)) {
+            return false;
+        } else {
+            return $newValue <= 0
+                || ! is_null($originalValue) && $newValue > $this->getLastSequenceValue()
+                || is_null($originalValue) && $newValue > $this->getNextSequenceValue();
+        }
     }
 
     /**
@@ -180,7 +185,7 @@ trait Sequenceable
 
         return is_numeric($value) ? (int) $value : null;
     }
-    
+
     /**
      * Get original sequence value.
      *
@@ -211,7 +216,9 @@ trait Sequenceable
                     return $sequenceModel->isAffectedByRepositioningOf($model);
                 });
 
-            if ($model->isMovingUpInSequence()) {
+            if (static::getAllowNull() && is_null($value)) {
+                static::decrementSequenceValues($modelsToUpdate);
+            } elseif ($model->isMovingUpInSequence()) {
                 static::decrementSequenceValues($modelsToUpdate);
             } else {
                 static::incrementSequenceValues($modelsToUpdate);
@@ -239,7 +246,7 @@ trait Sequenceable
     protected function isMovingDownInSequence(): bool
     {
         $originalValue = $this->getOriginalSequenceValue();
-        
+
         return $originalValue && $originalValue > $this->getSequenceValue();
     }
 
@@ -254,6 +261,10 @@ trait Sequenceable
         $newValue = $model->getSequenceValue();
         $originalValue = $model->getOriginalSequenceValue();
 
+        if (static::getAllowNull() && is_null($newValue)) {
+            return $this->getSequenceValue() > $originalValue;
+        }
+
         if ($model->isMovingDownInSequence()) {
             return $this->getSequenceValue() >= $newValue
                 && $this->getSequenceValue() < $originalValue;
@@ -265,6 +276,18 @@ trait Sequenceable
         }
 
         return $this->getSequenceValue() >= $newValue;
+    }
+
+    /**
+     * Get the setting that indicates if null values are allowed
+     *
+     * @return bool
+     */
+    public static function getAllowNull(): bool
+    {
+        return (bool) property_exists(static::class, 'allowNull')
+            ? static::$allowNull
+            : config('eloquentsequencer.allow_null', false);
     }
 
     /**
@@ -303,6 +326,7 @@ trait Sequenceable
      * Scope a query to order by sequence value.
      *
      * @param Builder $query
+     *
      * @return Builder
      */
     public static function scopeSequenced(Builder $query): Builder
