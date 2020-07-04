@@ -138,7 +138,7 @@ trait Sequenceable
         $newValue = $this->getSequenceValue();
         $originalValue = $this->getOriginalSequenceValue();
 
-        return $newValue <= 0
+        return $newValue < static::getInitialSequenceValue()
             || ! is_null($originalValue) && $newValue > $this->getLastSequenceValue()
             || is_null($originalValue) && $newValue > $this->getNextSequenceValue();
     }
