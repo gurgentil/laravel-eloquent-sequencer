@@ -377,6 +377,11 @@ trait Sequenceable
             : [];
     }
 
+    /**
+     * Get the value that sequences should start at.
+     *
+     * @return int
+     */
     protected static function getInitialSequenceValue(): int
     {
         return (int) config('eloquentsequencer.initial_value', 1);
