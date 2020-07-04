@@ -20,11 +20,12 @@ php artisan vendor:publish --provider="Gurgentil\LaravelEloquentSequencer\Larave
 
 ### Configuration parameters
 
-You can change the default colum name in `config/eloquentsequencer.php`:
+You can change the default colum name and the initial value for the sequences in `config/eloquentsequencer.php`:
 
 ```php
 return [
     'column_name' => 'position',
+    'initial_value' => 1,
 ];
 ```
 
