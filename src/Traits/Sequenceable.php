@@ -202,9 +202,6 @@ trait Sequenceable
     protected static function updateSequenceablesAffectedBy(Model $model): void
     {
         DB::transaction(function () use ($model) {
-            $value = $model->getSequenceValue();
-            $originalValue = $model->getOriginalSequenceValue();
-
             $modelsToUpdate = $model->getSequence()
                 ->where('id', '!=', $model->id)
                 ->filter(function ($sequenceModel) use ($model) {
