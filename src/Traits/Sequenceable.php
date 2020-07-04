@@ -382,6 +382,11 @@ trait Sequenceable
         return (int) config('eloquentsequencer.initial_value', 1);
     }
 
+    /**
+     * Determine if the sequence if empty.
+     *
+     * @return bool
+     */
     protected function isSequenceEmpty(): bool
     {
         return $this->getSequence()->count() === 0;
