@@ -49,4 +49,19 @@ class CreateObjectWithSequenceValueOutOfBoundsTest extends TestCase
             'group_id' => $group->id,
         ]);
     }
+
+    /** @test */
+    public function it_throws_an_exception_when_the_object_created_has_a_sequence_value_smaller_than_the_initial_value()
+    {
+        config(['eloquentsequencer.initial_vaue' => 10]);
+
+        $group = Factory::of('Group')->create();
+
+        $this->expectException(SequenceValueOutOfBoundsException::class);
+
+        Factory::of('Item')->create([
+            'position' => 9,
+            'group_id' => $group->id,
+        ]);
+    }
 }
