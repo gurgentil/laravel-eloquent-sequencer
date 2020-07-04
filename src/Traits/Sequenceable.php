@@ -27,7 +27,7 @@ trait Sequenceable
         static::creating(function ($model) {
             $model->handleSequenceableCreate();
         });
-        
+
         static::updating(function ($model) {
             $model->handleSequenceableUpdate();
         });
@@ -81,7 +81,7 @@ trait Sequenceable
 
             return;
         }
-        
+
         $value = $this->getSequenceValue();
 
         if (! $this->isDirty(static::getSequenceColumnName()) || is_null($value)) {
@@ -107,12 +107,12 @@ trait Sequenceable
 
             return;
         }
-        
+
         $columnName = static::getSequenceColumnName();
 
         $objects = $this->getSequence()
             ->where($columnName, '>', $this->getSequenceValue());
-            
+
         static::decrementSequenceValues($objects);
     }
 
@@ -180,7 +180,7 @@ trait Sequenceable
 
         return is_numeric($value) ? (int) $value : null;
     }
-    
+
     /**
      * Get original sequence value.
      *
@@ -239,7 +239,7 @@ trait Sequenceable
     protected function isMovingDownInSequence(): bool
     {
         $originalValue = $this->getOriginalSequenceValue();
-        
+
         return $originalValue && $originalValue > $this->getSequenceValue();
     }
 
@@ -286,7 +286,9 @@ trait Sequenceable
      */
     protected function getLastSequenceValue(): int
     {
-        return $this->getSequence()->count();
+        return $this->isSequenceEmpty()
+            ? 0
+            : $this->getSequence()->count() + static::getInitialSequenceValue() - 1;
     }
 
     /**
@@ -296,7 +298,9 @@ trait Sequenceable
      */
     public function getNextSequenceValue(): int
     {
-        return $this->getLastSequenceValue() + 1;
+        return $this->isSequenceEmpty()
+            ? static::getInitialSequenceValue()
+            : $this->getLastSequenceValue() + 1;
     }
 
     /**
@@ -374,5 +378,15 @@ trait Sequenceable
         return (array) property_exists(static::class, 'sequenceableKeys')
             ? static::$sequenceableKeys
             : [];
+    }
+
+    protected static function getInitialSequenceValue(): int
+    {
+        return (int) config('eloquentsequencer.initial_value', 1);
+    }
+
+    protected function isSequenceEmpty(): bool
+    {
+        return $this->getSequence()->count() === 0;
     }
 }
