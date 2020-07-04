@@ -91,4 +91,18 @@ class UpdateObjectWithSequenceValueOutOfBoundsText extends TestCase
 
         $this->assertEquals(2, $item->refresh()->position);
     }
+
+    /** @test */
+    public function it_throws_an_exception_when_the_updated_object_has_a_sequence_value_smaller_than_the_initial_value()
+    {
+        config(['eloquentsequencer.initial_value' => 10]);
+
+        $group = Factory::of('Group')->create();
+
+        $item = Factory::of('Item')->create(['group_id' => $group->id]);
+
+        $this->expectException(SequenceValueOutOfBoundsException::class);
+
+        $item->update(['position' => 9]);
+    }
 }
