@@ -27,7 +27,7 @@ trait Sequenceable
         static::creating(function ($model) {
             $model->handleSequenceableCreate();
         });
-        
+
         static::updating(function ($model) {
             $model->handleSequenceableUpdate();
         });
@@ -81,7 +81,7 @@ trait Sequenceable
 
             return;
         }
-        
+
         $value = $this->getSequenceValue();
 
         if (! $this->isDirty(static::getSequenceColumnName()) || is_null($value)) {
@@ -107,12 +107,12 @@ trait Sequenceable
 
             return;
         }
-        
+
         $columnName = static::getSequenceColumnName();
 
         $objects = $this->getSequence()
             ->where($columnName, '>', $this->getSequenceValue());
-            
+
         static::decrementSequenceValues($objects);
     }
 
@@ -138,7 +138,7 @@ trait Sequenceable
         $newValue = $this->getSequenceValue();
         $originalValue = $this->getOriginalSequenceValue();
 
-        return $newValue <= 0
+        return $newValue < static::getInitialSequenceValue()
             || ! is_null($originalValue) && $newValue > $this->getLastSequenceValue()
             || is_null($originalValue) && $newValue > $this->getNextSequenceValue();
     }
@@ -180,7 +180,7 @@ trait Sequenceable
 
         return is_numeric($value) ? (int) $value : null;
     }
-    
+
     /**
      * Get original sequence value.
      *
@@ -202,9 +202,6 @@ trait Sequenceable
     protected static function updateSequenceablesAffectedBy(Model $model): void
     {
         DB::transaction(function () use ($model) {
-            $value = $model->getSequenceValue();
-            $originalValue = $model->getOriginalSequenceValue();
-
             $modelsToUpdate = $model->getSequence()
                 ->where('id', '!=', $model->id)
                 ->filter(function ($sequenceModel) use ($model) {
@@ -239,7 +236,7 @@ trait Sequenceable
     protected function isMovingDownInSequence(): bool
     {
         $originalValue = $this->getOriginalSequenceValue();
-        
+
         return $originalValue && $originalValue > $this->getSequenceValue();
     }
 
@@ -286,7 +283,7 @@ trait Sequenceable
      */
     protected function getLastSequenceValue(): int
     {
-        return $this->getSequence()->count();
+        return $this->getNextSequenceValue() - 1;
     }
 
     /**
@@ -296,7 +293,7 @@ trait Sequenceable
      */
     public function getNextSequenceValue(): int
     {
-        return $this->getLastSequenceValue() + 1;
+        return static::getInitialSequenceValue() + $this->getSequence()->count();
     }
 
     /**
@@ -374,5 +371,15 @@ trait Sequenceable
         return (array) property_exists(static::class, 'sequenceableKeys')
             ? static::$sequenceableKeys
             : [];
+    }
+
+    /**
+     * Get the value that sequences should start at.
+     *
+     * @return int
+     */
+    protected static function getInitialSequenceValue(): int
+    {
+        return (int) config('eloquentsequencer.initial_value', 1);
     }
 }
