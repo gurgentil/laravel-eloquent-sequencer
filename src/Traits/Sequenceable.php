@@ -283,9 +283,7 @@ trait Sequenceable
      */
     protected function getLastSequenceValue(): int
     {
-        return $this->isSequenceEmpty()
-            ? 0
-            : $this->getSequence()->count() + static::getInitialSequenceValue() - 1;
+        return $this->getSequence()->count() + static::getInitialSequenceValue() - 1;
     }
 
     /**
