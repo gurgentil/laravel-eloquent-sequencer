@@ -105,4 +105,18 @@ class UpdateObjectWithSequenceValueOutOfBoundsText extends TestCase
 
         $item->update(['position' => 9]);
     }
+
+    /** @test */
+    public function it_bypasses_boundary_exception_when_configured_to()
+    {
+        config(['eloquentsequencer.exceed_bounds' => true]);
+
+        $group = Factory::of('Group')->create();
+
+        $item = Factory::of('Item')->create(['group_id' => $group->id]);
+
+        $item->update(['position' => 9]);
+
+        $this->assertEquals(9, $item->position);
+    }
 }

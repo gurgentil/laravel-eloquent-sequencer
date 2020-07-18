@@ -64,4 +64,19 @@ class CreateObjectWithSequenceValueOutOfBoundsTest extends TestCase
             'group_id' => $group->id,
         ]);
     }
+
+    /** @test */
+    public function it_bypasses_boundary_exception_when_configured_to()
+    {
+        config(['eloquentsequencer.exceed_bounds' => true]);
+
+        $group = Factory::of('Group')->create();
+
+        $item = Factory::of('Item')->create([
+            'position' => 9,
+            'group_id' => $group->id,
+        ]);
+
+        $this->assertEquals(9, $item->position);
+    }
 }
