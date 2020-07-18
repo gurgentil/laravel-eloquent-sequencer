@@ -123,6 +123,10 @@ trait Sequenceable
      */
     protected function isNewSequenceValueOutOfBounds(): bool
     {
+        if(config('eloquentsequencer.exceed_bounds', false)) {
+            return false;
+        }
+
         $newValue = $this->getSequenceValue();
 
         return $newValue <= 0 || $newValue > $this->getNextSequenceValue();
@@ -135,6 +139,10 @@ trait Sequenceable
      */
     protected function isUpdatedSequenceValueOutOfBounds(): bool
     {
+        if(config('eloquentsequencer.exceed_bounds', false)) {
+            return false;
+        }
+
         $newValue = $this->getSequenceValue();
         $originalValue = $this->getOriginalSequenceValue();
 
