@@ -13,7 +13,7 @@ class SetSequenceValueToTheNextValueWhenObjectIsCreatedTest extends TestCase
         $group = Factory::of('Group')->create();
 
         $item = Factory::of('Item')->create(['group_id' => $group->id]);
-        
+
         $this->assertNotNull($item->position);
     }
 
@@ -43,11 +43,11 @@ class SetSequenceValueToTheNextValueWhenObjectIsCreatedTest extends TestCase
     public function the_sequence_is_not_affected_by_a_new_object_created_in_another_group()
     {
         $group = Factory::of('Group')->create();
-        
+
         $anotherGroup = Factory::of('Group')->create();
 
         $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        
+
         $firstFromTheOtherGroup = Factory::of('Item')->create(['group_id' => $anotherGroup->id]);
 
         $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);

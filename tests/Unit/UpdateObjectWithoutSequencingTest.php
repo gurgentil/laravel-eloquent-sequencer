@@ -40,7 +40,7 @@ class UpdateObjectWithoutSequencingTest extends TestCase
 
         $secondItem->update(['position' => 2]);
         $thirdItem->update(['position' => 2]);
-        
+
         $this->assertEquals(1, $firstItem->refresh()->position);
         $this->assertEquals(2, $thirdItem->refresh()->position);
         $this->assertEquals(3, $secondItem->refresh()->position);

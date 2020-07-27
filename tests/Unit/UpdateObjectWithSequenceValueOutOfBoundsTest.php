@@ -2,8 +2,8 @@
 
 namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit;
 
-use Gurgentil\LaravelEloquentSequencer\Exceptions\SequenceValueOutOfBoundsException;
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
+use Gurgentil\LaravelEloquentSequencer\Exceptions\SequenceValueOutOfBoundsException;
 use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
 class UpdateObjectWithSequenceValueOutOfBoundsText extends TestCase

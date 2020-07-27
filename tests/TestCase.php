@@ -34,7 +34,7 @@ class TestCase extends OrchestraTestCase
 
         $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',
-            'database' => static::getTempDirectory() . '/database.sqlite',
+            'database' => static::getTempDirectory().'/database.sqlite',
             'prefix' => '',
         ]);
     }
@@ -43,16 +43,16 @@ class TestCase extends OrchestraTestCase
     {
         static::resetDatabase();
 
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
     protected static function resetDatabase()
     {
-        file_put_contents(static::getTempDirectory() . '/database.sqlite', null);
+        file_put_contents(static::getTempDirectory().'/database.sqlite', null);
     }
 
     protected static function getTempDirectory(): string
     {
-        return __DIR__ . '/temp';
+        return __DIR__.'/temp';
     }
 }

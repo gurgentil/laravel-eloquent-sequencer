@@ -12,7 +12,7 @@ class FlushSequenceValuesCommandTest extends TestCase
     public function the_flush_command_requires_a_valid_model_name()
     {
         $this->expectException(Exception::class);
-        
+
         $this->artisan('sequence:flush \\\App\\\InvalidModel')
             ->expectsOutput('Class `\\App\\InvalidModel` not found.')
             ->assertExitCode(1);
@@ -35,7 +35,7 @@ class FlushSequenceValuesCommandTest extends TestCase
 
         $items->each(function ($item) {
             $item->update(['position' => null]);
-            
+
             $this->assertNull($item->position);
         });
 
@@ -55,9 +55,9 @@ class FlushSequenceValuesCommandTest extends TestCase
         $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
 
         $secondItem->update(['position' => null]);
-        
+
         $thirdItem->update(['position' => null]);
-        
+
         $this->assertNotNull($firstItem->position);
         $this->assertNull($secondItem->position);
         $this->assertNull($thirdItem->position);

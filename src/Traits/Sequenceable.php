@@ -119,7 +119,7 @@ trait Sequenceable
     /**
      * Determine if new sequence value is out of bounds.
      *
-     * @return boolean
+     * @return bool
      */
     protected function isNewSequenceValueOutOfBounds(): bool
     {
@@ -131,7 +131,7 @@ trait Sequenceable
     /**
      * Determine if updated sequence value is out of bounds.
      *
-     * @return boolean
+     * @return bool
      */
     protected function isUpdatedSequenceValueOutOfBounds(): bool
     {
@@ -172,7 +172,7 @@ trait Sequenceable
     /**
      * Get sequence value.
      *
-     * @return integer|null
+     * @return int|null
      */
     public function getSequenceValue(): ?int
     {
@@ -184,7 +184,7 @@ trait Sequenceable
     /**
      * Get original sequence value.
      *
-     * @return integer|null
+     * @return int|null
      */
     protected function getOriginalSequenceValue(): ?int
     {
@@ -219,7 +219,7 @@ trait Sequenceable
     /**
      * Determine if the model is moving up in the sequence.
      *
-     * @return boolean
+     * @return bool
      */
     protected function isMovingUpInSequence(): bool
     {
@@ -231,7 +231,7 @@ trait Sequenceable
     /**
      * Determine if model is moving down in the sequence.
      *
-     * @return boolean
+     * @return bool
      */
     protected function isMovingDownInSequence(): bool
     {
@@ -244,7 +244,7 @@ trait Sequenceable
      * Indicate if model is affected by the repositioning of another model in the sequence.
      *
      * @param Model $model
-     * @return boolean
+     * @return bool
      */
     protected function isAffectedByRepositioningOf(Model $model): bool
     {
@@ -279,7 +279,7 @@ trait Sequenceable
     /**
      * Get sequence value of the last model in the sequence.
      *
-     * @return integer
+     * @return int
      */
     protected function getLastSequenceValue(): int
     {
@@ -289,7 +289,7 @@ trait Sequenceable
     /**
      * Get sequence value for the next model in the sequence.
      *
-     * @return integer
+     * @return int
      */
     public function getNextSequenceValue(): int
     {
