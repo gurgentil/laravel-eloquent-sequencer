@@ -26,7 +26,7 @@ class CreateObjectInTheMiddleOfTheSequenceTest extends TestCase
         $this->assertEquals(3, $secondItem->refresh()->position);
         $this->assertEquals(4, $thirdItem->refresh()->position);
     }
-    
+
     /** @test */
     public function it_creates_an_object_with_sequence_value_equal_to_2_and_move_the_group_around()
     {

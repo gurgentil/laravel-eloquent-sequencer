@@ -42,7 +42,7 @@ class FlushSequenceValues extends Command
     public function handle()
     {
         DB::transaction(function () {
-            $class = $this->getModelArgument(); 
+            $class = $this->getModelArgument();
 
             $models = ($class)::all();
 

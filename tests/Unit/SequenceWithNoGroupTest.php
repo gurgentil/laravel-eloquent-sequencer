@@ -3,8 +3,8 @@
 namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit;
 
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
-use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 use Gurgentil\LaravelEloquentSequencer\Tests\Models\Item;
+use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
 class SequenceWithNoGroupTest extends TestCase
 {

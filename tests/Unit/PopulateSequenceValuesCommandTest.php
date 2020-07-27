@@ -55,9 +55,9 @@ class PopulateSequenceValuesCommandTest extends TestCase
         $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
 
         $secondItem->update(['position' => null]);
-        
+
         $thirdItem->update(['position' => null]);
-        
+
         $this->assertNotNull($firstItem->position);
         $this->assertNull($secondItem->position);
         $this->assertNull($thirdItem->position);

@@ -8,12 +8,12 @@ use Illuminate\Support\Collection;
 class Factory
 {
     protected $model;
-    
+
     protected $times = 1;
 
     public function of(string $model)
     {
-        $this->model = 'Gurgentil\\LaravelEloquentSequencer\\Tests\\Models\\' . $model;
+        $this->model = 'Gurgentil\\LaravelEloquentSequencer\\Tests\\Models\\'.$model;
 
         return $this;
     }
