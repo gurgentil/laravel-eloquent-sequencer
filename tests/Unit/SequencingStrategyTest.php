@@ -12,4 +12,10 @@ class SequencingStrategyTest extends TestCase
     {
         $this->assertEquals('always', SequencingStrategy::ALWAYS);
     }
+
+    /** @test **/
+    public function it_can_be_set_to_on_create()
+    {
+        $this->assertEquals('on_create', SequencingStrategy::ON_CREATE);
+    }
 }
