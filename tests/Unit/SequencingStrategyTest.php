@@ -18,4 +18,10 @@ class SequencingStrategyTest extends TestCase
     {
         $this->assertEquals('on_create', SequencingStrategy::ON_CREATE);
     }
+
+    /** @test **/
+    public function it_can_be_set_to_on_update()
+    {
+        $this->assertEquals('on_update', SequencingStrategy::ON_UPDATE);
+    }
 }
