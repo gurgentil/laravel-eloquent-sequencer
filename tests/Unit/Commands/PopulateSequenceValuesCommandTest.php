@@ -1,6 +1,6 @@
 <?php
 
-namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit;
+namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit\Commands;
 
 use Exception;
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
