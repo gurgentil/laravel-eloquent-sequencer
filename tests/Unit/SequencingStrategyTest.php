@@ -24,4 +24,10 @@ class SequencingStrategyTest extends TestCase
     {
         $this->assertEquals('on_update', SequencingStrategy::ON_UPDATE);
     }
+
+    /** @test **/
+    public function it_can_be_set_to_never()
+    {
+        $this->assertEquals('never', SequencingStrategy::NEVER);
+    }
 }
