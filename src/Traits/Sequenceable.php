@@ -59,8 +59,10 @@ trait Sequenceable
     {
         $value = $this->getSequenceValue();
 
-        if (static::strategyIs(SequencingStrategy::NEVER)
-            || static::strategyIs(SequencingStrategy::ON_UPDATE)) {
+        if (static::strategyIs([
+            SequencingStrategy::NEVER,
+            SequencingStrategy::ON_UPDATE,
+        ])) {
             return;
         }
 
@@ -82,8 +84,10 @@ trait Sequenceable
      */
     protected function handleSequenceableUpdate(): void
     {
-        if (static::strategyIs(SequencingStrategy::NEVER)
-            || static::strategyIs(SequencingStrategy::ON_CREATE)) {
+        if (static::strategyIs([
+            SequencingStrategy::NEVER,
+            SequencingStrategy::ON_CREATE,
+        ])) {
             return;
         }
 
@@ -113,9 +117,11 @@ trait Sequenceable
      */
     protected function handleSequenceableDelete(): void
     {
-        if (static::strategyIs(SequencingStrategy::NEVER)
-            || static::strategyIs(SequencingStrategy::ON_CREATE)
-            || static::strategyIs(SequencingStrategy::ON_UPDATE)) {
+        if (static::strategyIs([
+            SequencingStrategy::NEVER,
+            SequencingStrategy::ON_CREATE,
+            SequencingStrategy::ON_UPDATE,
+        ])) {
             return;
         }
 
@@ -133,9 +139,9 @@ trait Sequenceable
         static::decrementSequenceValues($objects);
     }
 
-    protected static function strategyIs($strategy): bool
+    protected static function strategyIs(array $strategies): bool
     {
-        return config('eloquentsequencer.strategy') === $strategy;
+        return in_array(config('eloquentsequencer.strategy'), $strategies);
     }
 
     /**
