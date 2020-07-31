@@ -139,6 +139,12 @@ trait Sequenceable
         static::decrementSequenceValues($objects);
     }
 
+    /**
+     * Determine if strategy is in array.
+     * 
+     * @param array $strategies
+     * @return bool
+     */
     protected static function strategyIs(array $strategies): bool
     {
         return in_array(config('eloquentsequencer.strategy'), $strategies);
