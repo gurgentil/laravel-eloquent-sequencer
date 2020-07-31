@@ -27,7 +27,7 @@ class PopulateSequenceValuesCommandTest extends TestCase
     }
 
     /** @test */
-    public function the_populate_command_does_not_update_values_that_are_already_assigned()
+    public function the_populate_command_does_not_update_values_that_are_not_null()
     {
         $group = Factory::of('group')->create();
 
