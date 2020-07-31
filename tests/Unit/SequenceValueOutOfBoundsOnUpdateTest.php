@@ -72,7 +72,7 @@ class SequenceValueOutOfBoundsOnUpdateTest extends TestCase
 
         $this->expectException(SequenceValueOutOfBoundsException::class);
 
-        $item->update(['position' => 3]);
+        $item->update(['position' => 4]);
     }
 
     /** @test */

@@ -329,7 +329,12 @@ trait Sequenceable
      */
     public function getNextSequenceValue(): int
     {
-        return static::getInitialSequenceValue() + $this->getSequence()->count();
+        $column = static::getSequenceColumnName();
+        $maxSequenceValue = $this->getSequence()->max($column);
+
+        return $this->getSequence()->count() === 0
+            ? static::getInitialSequenceValue()
+            : $maxSequenceValue + 1;
     }
 
     /**
