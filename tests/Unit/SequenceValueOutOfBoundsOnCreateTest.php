@@ -6,7 +6,7 @@ use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\Exceptions\SequenceValueOutOfBoundsException;
 use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
-class CreateObjectWithSequenceValueOutOfBoundsTest extends TestCase
+class SequenceValueOutOfBoundsOnCreateTest extends TestCase
 {
     /** @test */
     public function it_throws_an_exception_when_the_object_created_has_a_sequence_value_that_is_negative()
