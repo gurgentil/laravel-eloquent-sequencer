@@ -20,14 +20,17 @@ php artisan vendor:publish --provider="Gurgentil\LaravelEloquentSequencer\Larave
 
 ### Configuration parameters
 
-You can change the default colum name and the initial value for the sequences in `config/eloquentsequencer.php`:
+You can change the default colum name, the initial value for the sequences and the sequencing strategy in `config/eloquentsequencer.php`:
 
 ```php
 return [
     'column_name' => 'position',
     'initial_value' => 1,
+    'strategy' => 'always',
 ];
 ```
+
+The `strategy` configuration determines when sequencing should be triggered and accepts one of the following values: `always`, `on_create`, `on_update` or `never`.
 
 ### Model configuration
 
