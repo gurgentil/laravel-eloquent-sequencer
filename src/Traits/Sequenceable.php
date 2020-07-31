@@ -113,7 +113,9 @@ trait Sequenceable
      */
     protected function handleSequenceableDelete(): void
     {
-        if (static::strategyIs(SequencingStrategy::NEVER)) {
+        if (static::strategyIs(SequencingStrategy::NEVER)
+            || static::strategyIs(SequencingStrategy::ON_CREATE)
+            || static::strategyIs(SequencingStrategy::ON_UPDATE)) {
             return;
         }
 
