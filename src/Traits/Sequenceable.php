@@ -59,7 +59,7 @@ trait Sequenceable
     {
         $value = $this->getSequenceValue();
 
-        if (config('eloquentsequencer.strategy') === SequencingStrategy::NEVER) {
+        if (static::strategyIs(SequencingStrategy::NEVER)) {
             return;
         }
 
@@ -81,10 +81,10 @@ trait Sequenceable
      */
     protected function handleSequenceableUpdate(): void
     {
-        if (config('eloquentsequencer.strategy') === SequencingStrategy::NEVER) {
+        if (static::strategyIs(SequencingStrategy::NEVER)) {
             return;
         }
-        
+
         if (! $this->shouldBeSequenced) {
             $this->shouldBeSequenced = true;
 
@@ -111,7 +111,7 @@ trait Sequenceable
      */
     protected function handleSequenceableDelete(): void
     {
-        if (config('eloquentsequencer.strategy') === SequencingStrategy::NEVER) {
+        if (static::strategyIs(SequencingStrategy::NEVER)) {
             return;
         }
 
@@ -127,6 +127,11 @@ trait Sequenceable
             ->where($columnName, '>', $this->getSequenceValue());
 
         static::decrementSequenceValues($objects);
+    }
+
+    protected static function strategyIs($strategy): bool
+    {
+        return config('eloquentsequencer.strategy') === $strategy;
     }
 
     /**
