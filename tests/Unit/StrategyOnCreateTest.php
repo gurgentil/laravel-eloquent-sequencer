@@ -41,4 +41,22 @@ class StrategyOnCreateTest extends TestCase
         $this->assertEquals(1, $firstItem->refresh()->position);
         $this->assertEquals(1, $secondItem->refresh()->position);
     }
+
+    /**
+     * @test
+     * @group Strategy
+     */
+    public function strategy_set_to_on_create_disables_sequencing_on_delete()
+    {
+        $group = Factory::of('Group')->create();
+
+        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+
+        config(['eloquentsequencer.strategy' => SequencingStrategy::ON_CREATE]);
+
+        $firstItem->delete();
+
+        $this->assertEquals(2, $secondItem->refresh()->position);
+    }
 }

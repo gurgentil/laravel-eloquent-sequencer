@@ -41,4 +41,22 @@ class StrategyOnUpdateTest extends TestCase
 
         $this->assertNull($firstItem->refresh()->position);
     }
+
+    /**
+     * @test
+     * @group Strategy
+     */
+    public function strategy_set_to_on_update_disables_sequencing_on_delete()
+    {
+        $group = Factory::of('Group')->create();
+
+        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+
+        config(['eloquentsequencer.strategy' => SequencingStrategy::ON_UPDATE]);
+
+        $firstItem->delete();
+
+        $this->assertEquals(2, $secondItem->refresh()->position);
+    }
 }
