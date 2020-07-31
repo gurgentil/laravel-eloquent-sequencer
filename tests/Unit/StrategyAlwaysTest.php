@@ -22,4 +22,22 @@ class StrategyAlwaysTest extends TestCase
 
         $this->assertEquals(1, $firstItem->refresh()->position);
     }
+
+    /**
+     * @test
+     * @group Strategy
+     */
+    public function strategy_set_to_always_works_on_delete()
+    {
+        config(['eloquentsequencer.strategy' => SequencingStrategy::ALWAYS]);
+
+        $group = Factory::of('Group')->create();
+
+        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+
+        $firstItem->delete();
+
+        $this->assertEquals(1, $secondItem->refresh()->position);
+    }
 }
