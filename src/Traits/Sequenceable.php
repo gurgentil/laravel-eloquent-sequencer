@@ -3,6 +3,7 @@
 namespace Gurgentil\LaravelEloquentSequencer\Traits;
 
 use Gurgentil\LaravelEloquentSequencer\Exceptions\SequenceValueOutOfBoundsException;
+use Gurgentil\LaravelEloquentSequencer\SequencingStrategy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -57,6 +58,10 @@ trait Sequenceable
     protected function handleSequenceableCreate(): void
     {
         $value = $this->getSequenceValue();
+
+        if (config('eloquentsequencer.strategy') === SequencingStrategy::NEVER) {
+            return;
+        }
 
         if (is_null($value)) {
             $this->{static::getSequenceColumnName()} = $this->getNextSequenceValue();
