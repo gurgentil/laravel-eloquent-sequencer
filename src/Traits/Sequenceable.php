@@ -59,7 +59,8 @@ trait Sequenceable
     {
         $value = $this->getSequenceValue();
 
-        if (static::strategyIs(SequencingStrategy::NEVER)) {
+        if (static::strategyIs(SequencingStrategy::NEVER)
+            || static::strategyIs(SequencingStrategy::ON_UPDATE)) {
             return;
         }
 
@@ -81,7 +82,8 @@ trait Sequenceable
      */
     protected function handleSequenceableUpdate(): void
     {
-        if (static::strategyIs(SequencingStrategy::NEVER)) {
+        if (static::strategyIs(SequencingStrategy::NEVER)
+            || static::strategyIs(SequencingStrategy::ON_CREATE)) {
             return;
         }
 
