@@ -29,12 +29,12 @@ class StrategyAlwaysTest extends TestCase
      */
     public function strategy_set_to_always_works_on_update()
     {
-        config(['eloquentsequencer.strategy' => SequencingStrategy::ALWAYS]);
-
         $group = Factory::of('group')->create();
 
         $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
         $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
+
+        config(['eloquentsequencer.strategy' => SequencingStrategy::ALWAYS]);
 
         $secondItem->update(['position' => 1]);
 
