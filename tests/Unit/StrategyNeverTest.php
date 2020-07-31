@@ -22,4 +22,22 @@ class StrategyNeverTest extends TestCase
 
         $this->assertNull($firstItem->refresh()->position);
     }
+
+    /**
+     * @test
+     * @group Strategy
+     */
+    public function strategy_set_to_never_works_on_delete()
+    {
+        $group = Factory::of('Group')->create();
+
+        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+
+        config(['eloquentsequencer.strategy' => SequencingStrategy::NEVER]);
+
+        $firstItem->delete();
+
+        $this->assertEquals(2, $secondItem->refresh()->position);
+    }
 }

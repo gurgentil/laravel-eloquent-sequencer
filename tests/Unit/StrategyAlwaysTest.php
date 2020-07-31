@@ -48,12 +48,12 @@ class StrategyAlwaysTest extends TestCase
      */
     public function strategy_set_to_always_works_on_delete()
     {
-        config(['eloquentsequencer.strategy' => SequencingStrategy::ALWAYS]);
-
         $group = Factory::of('Group')->create();
 
         $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
         $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+
+        config(['eloquentsequencer.strategy' => SequencingStrategy::ALWAYS]);
 
         $firstItem->delete();
 
