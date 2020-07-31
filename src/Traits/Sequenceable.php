@@ -107,6 +107,10 @@ trait Sequenceable
      */
     protected function handleSequenceableDelete(): void
     {
+        if (config('eloquentsequencer.strategy') === SequencingStrategy::NEVER) {
+            return;
+        }
+
         if (! $this->shouldBeSequenced) {
             $this->shouldBeSequenced = true;
 
