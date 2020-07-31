@@ -58,7 +58,7 @@ class PopulateSequenceValuesCommandTest extends TestCase
 
         $thirdItem->update(['position' => null]);
 
-        $this->assertNotNull($firstItem->position);
+        $this->assertEquals(1, $firstItem->refresh()->position);
         $this->assertNull($secondItem->position);
         $this->assertNull($thirdItem->position);
 
