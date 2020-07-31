@@ -8,7 +8,7 @@ use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 class WithoutSequencingTest extends TestCase
 {
     /** @test */
-    public function sequencing_may_be_disabled_for_deletes()
+    public function without_sequencing_works_on_deletes()
     {
         $group = Factory::of('Group')->create();
 
@@ -22,7 +22,7 @@ class WithoutSequencingTest extends TestCase
     }
 
     /** @test */
-    public function sequencing_may_be_disabled_for_updates()
+    public function without_sequencing_works_on_updates()
     {
         $group = Factory::of('Group')->create();
 
@@ -37,7 +37,7 @@ class WithoutSequencingTest extends TestCase
     }
 
     /** @test */
-    public function sequencing_may_be_disabled_for_only_the_following_update()
+    public function without_sequencing_should_not_affect_following_operations()
     {
         $group = Factory::of('Group')->create();
 
