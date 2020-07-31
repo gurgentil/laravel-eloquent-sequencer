@@ -6,7 +6,7 @@ use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\Exceptions\SequenceValueOutOfBoundsException;
 use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
-class UpdateObjectWithSequenceValueOutOfBoundsText extends TestCase
+class SequenceValueOutOfBoundsOnUpdateTest extends TestCase
 {
     /** @test */
     public function it_throws_an_exception_when_the_object_updated_has_a_sequence_value_that_is_negative()
@@ -72,7 +72,7 @@ class UpdateObjectWithSequenceValueOutOfBoundsText extends TestCase
 
         $this->expectException(SequenceValueOutOfBoundsException::class);
 
-        $item->update(['position' => 3]);
+        $item->update(['position' => 4]);
     }
 
     /** @test */

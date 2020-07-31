@@ -1,6 +1,6 @@
 <?php
 
-namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit;
+namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit\Commands;
 
 use Exception;
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
@@ -27,9 +27,9 @@ class PopulateSequenceValuesCommandTest extends TestCase
     }
 
     /** @test */
-    public function the_populate_command_does_not_update_values_that_are_already_assigned()
+    public function the_populate_command_does_not_update_values_that_are_not_null()
     {
-        $group = Factory::of('group')->create();
+        $group = Factory::of('Group')->create();
 
         $items = Factory::of('Item')
             ->times(4)
@@ -48,7 +48,7 @@ class PopulateSequenceValuesCommandTest extends TestCase
     /** @test */
     public function the_populate_command_populates_every_empty_sequence_value()
     {
-        $group = Factory::of('group')->create();
+        $group = Factory::of('Group')->create();
 
         $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
         $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
@@ -58,7 +58,7 @@ class PopulateSequenceValuesCommandTest extends TestCase
 
         $thirdItem->update(['position' => null]);
 
-        $this->assertNotNull($firstItem->position);
+        $this->assertEquals(1, $firstItem->refresh()->position);
         $this->assertNull($secondItem->position);
         $this->assertNull($thirdItem->position);
 

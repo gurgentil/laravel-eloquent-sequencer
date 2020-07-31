@@ -5,7 +5,7 @@ namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit;
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
-class RearrangeSequenceWhenAnObjectIsDeletedTest extends TestCase
+class DeleteSequenceableTest extends TestCase
 {
     /** @test */
     public function it_assigns_1_to_the_second_object_and_two_to_the_third_one_when_the_first_one_is_deleted()

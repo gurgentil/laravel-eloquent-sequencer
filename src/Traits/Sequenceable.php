@@ -3,6 +3,7 @@
 namespace Gurgentil\LaravelEloquentSequencer\Traits;
 
 use Gurgentil\LaravelEloquentSequencer\Exceptions\SequenceValueOutOfBoundsException;
+use Gurgentil\LaravelEloquentSequencer\SequencingStrategy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -58,6 +59,13 @@ trait Sequenceable
     {
         $value = $this->getSequenceValue();
 
+        if (static::strategyIn([
+            SequencingStrategy::NEVER,
+            SequencingStrategy::ON_UPDATE,
+        ])) {
+            return;
+        }
+
         if (is_null($value)) {
             $this->{static::getSequenceColumnName()} = $this->getNextSequenceValue();
         }
@@ -76,6 +84,13 @@ trait Sequenceable
      */
     protected function handleSequenceableUpdate(): void
     {
+        if (static::strategyIn([
+            SequencingStrategy::NEVER,
+            SequencingStrategy::ON_CREATE,
+        ])) {
+            return;
+        }
+
         if (! $this->shouldBeSequenced) {
             $this->shouldBeSequenced = true;
 
@@ -84,7 +99,7 @@ trait Sequenceable
 
         $value = $this->getSequenceValue();
 
-        if (! $this->isDirty(static::getSequenceColumnName()) || is_null($value)) {
+        if ($this->isClean(static::getSequenceColumnName()) || is_null($value)) {
             return;
         }
 
@@ -102,6 +117,14 @@ trait Sequenceable
      */
     protected function handleSequenceableDelete(): void
     {
+        if (static::strategyIn([
+            SequencingStrategy::NEVER,
+            SequencingStrategy::ON_CREATE,
+            SequencingStrategy::ON_UPDATE,
+        ])) {
+            return;
+        }
+
         if (! $this->shouldBeSequenced) {
             $this->shouldBeSequenced = true;
 
@@ -114,6 +137,17 @@ trait Sequenceable
             ->where($columnName, '>', $this->getSequenceValue());
 
         static::decrementSequenceValues($objects);
+    }
+
+    /**
+     * Determine if strategy is in array.
+     *
+     * @param array $strategies
+     * @return bool
+     */
+    protected static function strategyIn(array $strategies): bool
+    {
+        return in_array(config('eloquentsequencer.strategy'), $strategies);
     }
 
     /**
@@ -279,11 +313,13 @@ trait Sequenceable
     /**
      * Get sequence value of the last model in the sequence.
      *
-     * @return int
+     * @return int|null
      */
-    protected function getLastSequenceValue(): int
+    protected function getLastSequenceValue(): ?int
     {
-        return $this->getNextSequenceValue() - 1;
+        $column = static::getSequenceColumnName();
+
+        return $this->getSequence()->max($column);
     }
 
     /**
@@ -293,7 +329,12 @@ trait Sequenceable
      */
     public function getNextSequenceValue(): int
     {
-        return static::getInitialSequenceValue() + $this->getSequence()->count();
+        $column = static::getSequenceColumnName();
+        $maxSequenceValue = $this->getSequence()->max($column);
+
+        return $this->getSequence()->count() === 0
+            ? static::getInitialSequenceValue()
+            : $maxSequenceValue + 1;
     }
 
     /**

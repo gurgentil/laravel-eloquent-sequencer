@@ -5,10 +5,24 @@ namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit;
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
-class UpdateObjectWithoutSequencingTest extends TestCase
+class WithoutSequencingTest extends TestCase
 {
     /** @test */
-    public function sequencing_may_be_disabled_for_updates()
+    public function without_sequencing_works_on_deletes()
+    {
+        $group = Factory::of('Group')->create();
+
+        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+
+        $firstItem->withoutSequencing()
+            ->delete();
+
+        $this->assertEquals(2, $secondItem->refresh()->position);
+    }
+
+    /** @test */
+    public function without_sequencing_works_on_updates()
     {
         $group = Factory::of('Group')->create();
 
@@ -23,7 +37,7 @@ class UpdateObjectWithoutSequencingTest extends TestCase
     }
 
     /** @test */
-    public function sequencing_may_be_disabled_for_only_the_following_update()
+    public function without_sequencing_should_not_affect_following_operations()
     {
         $group = Factory::of('Group')->create();
 
