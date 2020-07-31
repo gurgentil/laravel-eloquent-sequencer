@@ -99,7 +99,7 @@ trait Sequenceable
 
         $value = $this->getSequenceValue();
 
-        if (! $this->isDirty(static::getSequenceColumnName()) || is_null($value)) {
+        if ($this->isClean(static::getSequenceColumnName()) || is_null($value)) {
             return;
         }
 
@@ -141,7 +141,7 @@ trait Sequenceable
 
     /**
      * Determine if strategy is in array.
-     * 
+     *
      * @param array $strategies
      * @return bool
      */
