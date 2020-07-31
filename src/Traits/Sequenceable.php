@@ -279,11 +279,13 @@ trait Sequenceable
     /**
      * Get sequence value of the last model in the sequence.
      *
-     * @return int
+     * @return int|null
      */
-    protected function getLastSequenceValue(): int
+    protected function getLastSequenceValue(): ?int
     {
-        return $this->getNextSequenceValue() - 1;
+        $column = static::getSequenceColumnName();
+
+        return $this->getSequence()->max($column);
     }
 
     /**
