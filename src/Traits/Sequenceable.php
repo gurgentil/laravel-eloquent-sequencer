@@ -59,7 +59,7 @@ trait Sequenceable
     {
         $value = $this->getSequenceValue();
 
-        if (static::strategyIs([
+        if (static::strategyIn([
             SequencingStrategy::NEVER,
             SequencingStrategy::ON_UPDATE,
         ])) {
@@ -84,7 +84,7 @@ trait Sequenceable
      */
     protected function handleSequenceableUpdate(): void
     {
-        if (static::strategyIs([
+        if (static::strategyIn([
             SequencingStrategy::NEVER,
             SequencingStrategy::ON_CREATE,
         ])) {
@@ -117,7 +117,7 @@ trait Sequenceable
      */
     protected function handleSequenceableDelete(): void
     {
-        if (static::strategyIs([
+        if (static::strategyIn([
             SequencingStrategy::NEVER,
             SequencingStrategy::ON_CREATE,
             SequencingStrategy::ON_UPDATE,
@@ -145,7 +145,7 @@ trait Sequenceable
      * @param array $strategies
      * @return bool
      */
-    protected static function strategyIs(array $strategies): bool
+    protected static function strategyIn(array $strategies): bool
     {
         return in_array(config('eloquentsequencer.strategy'), $strategies);
     }
