@@ -81,6 +81,10 @@ trait Sequenceable
      */
     protected function handleSequenceableUpdate(): void
     {
+        if (config('eloquentsequencer.strategy') === SequencingStrategy::NEVER) {
+            return;
+        }
+        
         if (! $this->shouldBeSequenced) {
             $this->shouldBeSequenced = true;
 
