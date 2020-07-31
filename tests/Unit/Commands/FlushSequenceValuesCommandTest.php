@@ -29,7 +29,7 @@ class FlushSequenceValuesCommandTest extends TestCase
     /** @test */
     public function the_flush_command_does_not_update_values_that_are_already_null()
     {
-        $group = Factory::of('group')->create();
+        $group = Factory::of('Group')->create();
 
         $items = Factory::of('Item')->times(4)->create(['group_id' => $group->id]);
 
@@ -48,7 +48,7 @@ class FlushSequenceValuesCommandTest extends TestCase
     /** @test */
     public function the_flush_command_flushes_sequence_values()
     {
-        $group = Factory::of('group')->create();
+        $group = Factory::of('Group')->create();
 
         $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
         $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
