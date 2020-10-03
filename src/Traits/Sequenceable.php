@@ -235,7 +235,7 @@ trait Sequenceable
      */
     protected static function updateSequenceablesAffectedBy(Model $model): void
     {
-        DB::transaction(function () use ($model) {
+        $model->getConnection()->transaction(function () use ($model) {
             $modelsToUpdate = $model->getSequence()
                 ->where('id', '!=', $model->id)
                 ->filter(function ($sequenceModel) use ($model) {
