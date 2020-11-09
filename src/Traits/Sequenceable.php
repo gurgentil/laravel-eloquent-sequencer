@@ -409,8 +409,8 @@ trait Sequenceable
      */
     protected function getSequenceKeys(): array
     {
-        return (array) property_exists(static::class, 'sequenceableKeys')
-            ? static::$sequenceableKeys
+        return property_exists(static::class, 'sequenceableKeys')
+            ? (array) static::$sequenceableKeys
             : [];
     }
 
