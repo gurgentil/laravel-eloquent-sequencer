@@ -239,7 +239,8 @@ trait Sequenceable
                 ->where('id', '!=', $model->id)
                 ->filter(function ($sequenceModel) use ($model) {
                     return $sequenceModel->isAffectedByRepositioningOf($model);
-                });
+                })
+                ->each->withoutSequencing();
 
             if ($model->isMovingUpInSequence()) {
                 static::decrementSequenceValues($modelsToUpdate);
