@@ -7,7 +7,6 @@ use Gurgentil\LaravelEloquentSequencer\SequencingStrategy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 trait Sequenceable
 {
@@ -235,7 +234,7 @@ trait Sequenceable
      */
     protected static function updateSequenceablesAffectedBy(Model $model): void
     {
-        DB::transaction(function () use ($model) {
+        $model->getConnection()->transaction(function () use ($model) {
             $modelsToUpdate = $model->getSequence()
                 ->where('id', '!=', $model->id)
                 ->filter(function ($sequenceModel) use ($model) {
