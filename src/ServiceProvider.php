@@ -4,9 +4,9 @@ namespace Gurgentil\LaravelEloquentSequencer;
 
 use Gurgentil\LaravelEloquentSequencer\Console\Commands\FlushSequenceValues;
 use Gurgentil\LaravelEloquentSequencer\Console\Commands\PopulateSequenceValues;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
-class LaravelEloquentSequencerServiceProvider extends ServiceProvider
+class ServiceProvider extends IlluminateServiceProvider
 {
     /**
      * Bootstrap the application services.

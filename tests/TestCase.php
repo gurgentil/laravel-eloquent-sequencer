@@ -2,7 +2,7 @@
 
 namespace Gurgentil\LaravelEloquentSequencer\Tests;
 
-use Gurgentil\LaravelEloquentSequencer\LaravelEloquentSequencerServiceProvider;
+use Gurgentil\LaravelEloquentSequencer\ServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
@@ -10,7 +10,7 @@ class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app): array
     {
         return [
-            LaravelEloquentSequencerServiceProvider::class,
+            ServiceProvider::class,
         ];
     }
 
