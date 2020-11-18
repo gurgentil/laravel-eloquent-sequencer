@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+    sequencer:
+        build: .
+        container_name: sequencer
+        volumes:
+            - ./:/var/www/app
+        tty: true

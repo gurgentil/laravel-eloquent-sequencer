@@ -12,3 +12,5 @@
 /.styleci.yml       export-ignore
 /CHANGELOG.md       export-ignore
 /CONTRIBUTING.md    export-ignore
+Dockerfile          export-ignore
+docker-compose.yml  export-ignore
