@@ -14,7 +14,7 @@ class PopulateSequenceValuesCommandTest extends TestCase
         $this->expectException(Exception::class);
 
         $this->artisan('sequence:populate \\\App\\\InvalidModel')
-            ->expectsOutput('Class `\\App\\InvalidModel` not found.')
+            ->expectsOutput('Model `\\App\\InvalidModel` not found.')
             ->assertExitCode(1);
     }
 

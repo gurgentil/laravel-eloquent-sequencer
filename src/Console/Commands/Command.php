@@ -15,16 +15,18 @@ abstract class Command extends IlluminateCommand
      */
     protected function getModelArgument(): string
     {
-        $class = $this->argument('model');
+        $modelClass = $this->argument('model') ?? '';
 
-        if (! class_exists($class)) {
-            $message = "Class `{$class}` not found.";
+        $modelClass = (string) $modelClass;
+
+        if (! class_exists($modelClass)) {
+            $message = "Model `{$modelClass}` not found.";
 
             $this->error($message);
 
             throw new Exception($message);
         }
 
-        return $class;
+        return $modelClass;
     }
 }
