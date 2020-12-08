@@ -33,7 +33,9 @@ class PopulateSequenceValues extends Command
             $models = ($class)::all();
 
             if ($models->count() === 0) {
-                return $this->info('Nothing to update.');
+                $this->info('Nothing to update.');
+
+                return;
             }
 
             $this->line("Analyzing and populating sequence values in {$models->count()} object(s).");
