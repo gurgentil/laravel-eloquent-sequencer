@@ -1,12 +1,12 @@
 {
     "name": "gurgentil/laravel-eloquent-sequencer",
-    "description": "A package that allows you to create and manage sequences on Eloquent models.",
+    "description": "A package that allows you to create and manage sequences on Eloquent models",
     "keywords": [
-        "gurgentil",
         "laravel",
         "eloquent",
         "order",
-        "sequence"
+        "sequence",
+        "sequenceable"
     ],
     "homepage": "https://github.com/gurgentil/laravel-eloquent-sequencer",
     "license": "MIT",
