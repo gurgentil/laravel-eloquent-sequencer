@@ -15,7 +15,7 @@ trait HasModelArgument
     {
         $class = $this->argument('model');
 
-        if (! class_exists($class)) {
+        if (!class_exists($class)) {
             $message = "Class `{$class}` not found.";
 
             $this->error($message);

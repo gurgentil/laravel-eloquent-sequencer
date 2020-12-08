@@ -27,7 +27,7 @@ class Factory
 
     public function create($params = [])
     {
-        if (! $this->model) {
+        if (!$this->model) {
             throw new Exception('Factory must receive an existing model name.');
         }
 
