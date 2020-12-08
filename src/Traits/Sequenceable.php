@@ -142,6 +142,7 @@ trait Sequenceable
      * Determine if strategy is in array.
      *
      * @param array $strategies
+     *
      * @return bool
      */
     protected static function strategyIn(array $strategies): bool
@@ -180,6 +181,7 @@ trait Sequenceable
      * Decrement sequence values from a collection of sequenceable models.
      *
      * @param Collection $models
+     *
      * @return void
      */
     protected static function decrementSequenceValues(Collection $models): void
@@ -193,6 +195,7 @@ trait Sequenceable
      * Increment sequence values from a collection of sequenceable models.
      *
      * @param Collection $models
+     *
      * @return void
      */
     protected static function incrementSequenceValues(Collection $models): void
@@ -230,6 +233,7 @@ trait Sequenceable
      * Update models affected by the repositioning of another model.
      *
      * @param Model $model
+     *
      * @return void
      */
     protected static function updateSequenceablesAffectedBy(Model $model): void
@@ -278,6 +282,7 @@ trait Sequenceable
      * Indicate if model is affected by the repositioning of another model in the sequence.
      *
      * @param Model $model
+     *
      * @return bool
      */
     protected function isAffectedByRepositioningOf(Model $model): bool
@@ -341,6 +346,7 @@ trait Sequenceable
      * Scope a query to order by sequence value.
      *
      * @param Builder $query
+     *
      * @return Builder
      */
     public static function scopeSequenced(Builder $query): Builder

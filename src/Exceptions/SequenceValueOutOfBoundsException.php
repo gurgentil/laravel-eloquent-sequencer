@@ -10,6 +10,7 @@ class SequenceValueOutOfBoundsException extends InvalidArgumentException
      * Create exception.
      *
      * @param int $value
+     *
      * @return self
      */
     public static function create(int $value): self

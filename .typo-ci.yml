@@ -1,0 +1,7 @@
+dictionaries:
+  - en
+excluded_files:
+  - "*.yml"
+excluded_words:
+  - sequenceable
+spellcheck_filenames: true
