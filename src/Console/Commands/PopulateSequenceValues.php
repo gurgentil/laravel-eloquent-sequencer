@@ -2,14 +2,10 @@
 
 namespace Gurgentil\LaravelEloquentSequencer\Console\Commands;
 
-use Gurgentil\LaravelEloquentSequencer\Console\Commands\Traits\HasModelArgument;
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
 class PopulateSequenceValues extends Command
 {
-    use HasModelArgument;
-
     /**
      * The name and signature of the console command.
      *
@@ -25,16 +21,6 @@ class PopulateSequenceValues extends Command
     protected $description = 'Populate sequence values for a specific model.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -47,7 +33,9 @@ class PopulateSequenceValues extends Command
             $models = ($class)::all();
 
             if ($models->count() === 0) {
-                return $this->info('Nothing to update.');
+                $this->info('Nothing to update.');
+
+                return;
             }
 
             $this->line("Analyzing and populating sequence values in {$models->count()} object(s).");
