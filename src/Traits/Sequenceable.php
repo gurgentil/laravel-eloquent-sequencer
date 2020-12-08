@@ -90,7 +90,7 @@ trait Sequenceable
             return;
         }
 
-        if (!$this->shouldBeSequenced) {
+        if (! $this->shouldBeSequenced) {
             $this->shouldBeSequenced = true;
 
             return;
@@ -124,7 +124,7 @@ trait Sequenceable
             return;
         }
 
-        if (!$this->shouldBeSequenced) {
+        if (! $this->shouldBeSequenced) {
             $this->shouldBeSequenced = true;
 
             return;
@@ -173,7 +173,7 @@ trait Sequenceable
         $originalValue = $this->getOriginalSequenceValue();
 
         return $newValue < static::getInitialSequenceValue()
-            || !is_null($originalValue) && $newValue > $this->getLastSequenceValue()
+            || ! is_null($originalValue) && $newValue > $this->getLastSequenceValue()
             || is_null($originalValue) && $newValue > $this->getNextSequenceValue();
     }
 
