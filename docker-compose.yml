@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-    sequencer:
-        build: .
-        container_name: sequencer
-        volumes:
-            - ./:/var/www/app
-        tty: true
+  app:
+    image: ambientum/php:7.3-nginx
+    container_name: sequencer
+    working_dir: '/var/www/app/'
+    volumes:
+      - .:/var/www/app
