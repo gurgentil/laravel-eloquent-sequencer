@@ -15,7 +15,7 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/config.php' => config_path('eloquentsequencer.php'),
+                __DIR__.'/../config/config.php' => config_path('eloquentsequencer.php'),
             ], 'config');
 
             $this->commands([
@@ -30,6 +30,6 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'eloquentsequencer');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'eloquentsequencer');
     }
 }
