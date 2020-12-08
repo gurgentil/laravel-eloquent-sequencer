@@ -443,5 +443,5 @@ trait Sequenceable
      * @param array|string|null $attributes
      * @return bool
      */
-    abstract public function isClean($attributes): bool;
+    abstract public function isClean($attributes = null);
 }
