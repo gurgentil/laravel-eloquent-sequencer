@@ -1,15 +1,17 @@
 <?php
 
-namespace Gurgentil\LaravelEloquentSequencer\Console\Commands\Traits;
+namespace Gurgentil\LaravelEloquentSequencer\Console\Commands;
 
 use Exception;
+use Illuminate\Console\Command as IlluminateCommand;
 
-trait HasModelArgument
+abstract class Command extends IlluminateCommand
 {
     /**
      * Get model argument.
      *
      * @return string
+     * @throws Exception
      */
     protected function getModelArgument(): string
     {
