@@ -13,7 +13,7 @@ class Factory
 
     public function of(string $model)
     {
-        $this->model = 'Gurgentil\\LaravelEloquentSequencer\\Tests\\Models\\'.$model;
+        $this->model = 'Gurgentil\\LaravelEloquentSequencer\\Tests\\Models\\' . $model;
 
         return $this;
     }
