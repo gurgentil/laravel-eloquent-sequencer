@@ -435,7 +435,7 @@ trait Sequenceable
      *
      * @return string
      */
-    abstract public function getKeyName(): string;
+    abstract public function getKeyName();
 
     /**
      * Determine if the model and all the given attribute(s) have remained the same.
