@@ -1,12 +1,12 @@
 {
     "name": "gurgentil/laravel-eloquent-sequencer",
-    "description": "A package that allows you to create and manage sequences on Eloquent models.",
+    "description": "A package that allows you to create and manage sequences on Eloquent models",
     "keywords": [
-        "gurgentil",
         "laravel",
         "eloquent",
         "order",
-        "sequence"
+        "sequence",
+        "sequenceable"
     ],
     "homepage": "https://github.com/gurgentil/laravel-eloquent-sequencer",
     "license": "MIT",
@@ -23,8 +23,7 @@
         "illuminate/support": "^5.0|^6.0|^7.0|^8.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^3.8|^4.0|^5.0",
-        "phpunit/phpunit": "^8.0|^9.0"
+        "orchestra/testbench": "^3.8|^4.0|^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -37,8 +36,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+        "test": "vendor/bin/phpunit"
     },
     "config": {
         "sort-packages": true
@@ -46,11 +44,8 @@
     "extra": {
         "laravel": {
             "providers": [
-              "ServiceProvider"
-            ],
-            "aliases": {
-                "LaravelEloquentSequencer": "Gurgentil\\LaravelEloquentSequencer\\LaravelEloquentSequencerFacade"
-            }
+                "Gurgentil\\LaravelEloquentSequencer\\ServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
