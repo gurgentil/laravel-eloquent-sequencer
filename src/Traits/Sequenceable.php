@@ -429,4 +429,19 @@ trait Sequenceable
     {
         return (int) config('eloquentsequencer.initial_value', 1);
     }
+
+    /**
+     * Get the primary key for the model.
+     *
+     * @return string
+     */
+    abstract public function getKeyName();
+
+    /**
+     * Determine if the model and all the given attribute(s) have remained the same.
+     *
+     * @param array|string|null $attributes
+     * @return bool
+     */
+    abstract public function isClean($attributes = null);
 }
