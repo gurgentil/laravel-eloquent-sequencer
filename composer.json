@@ -45,11 +45,8 @@
     "extra": {
         "laravel": {
             "providers": [
-              "ServiceProvider"
-            ],
-            "aliases": {
-                "LaravelEloquentSequencer": "Gurgentil\\LaravelEloquentSequencer\\LaravelEloquentSequencerFacade"
-            }
+                "Gurgentil\\LaravelEloquentSequencer\\ServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
