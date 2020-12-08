@@ -1,4 +1,4 @@
-name: Fix PHP styling
+name: fix-php-styling
 
 on: [push, pull_request]
 
