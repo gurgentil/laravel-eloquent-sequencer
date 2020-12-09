@@ -2,18 +2,17 @@
 
 namespace Gurgentil\LaravelEloquentSequencer\Tests;
 
-use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Models\Item;
 
 class GetSequenceColumnNameMethodTest extends TestCase
 {
     /** @test */
-    public function column_name_may_be_set_in_the_configuration_file()
+    public function the_column_name_can_be_set_in_the_configuration_file(): void
     {
-        config(['eloquentsequencer.column_name' => 'order']);
+        $columnName = 'order';
 
-        $group = Factory::of('Group')->create();
+        config(['eloquentsequencer.column_name' => $columnName]);
 
-        $this->assertEquals('order', Item::getSequenceColumnName());
+        $this->assertEquals($columnName, Item::getSequenceColumnName());
     }
 }
