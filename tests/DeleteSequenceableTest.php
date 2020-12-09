@@ -7,22 +7,7 @@ use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 class DeleteSequenceableTest extends TestCase
 {
     /** @test */
-    public function it_assigns_1_to_the_second_object_and_two_to_the_third_one_when_the_first_one_is_deleted()
-    {
-        $group = Factory::of('Group')->create();
-
-        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
-
-        $firstItem->delete();
-
-        $this->assertEquals(1, $secondItem->refresh()->position);
-        $this->assertEquals(2, $thirdItem->refresh()->position);
-    }
-
-    /** @test */
-    public function it_assigns_2_to_third_object_when_the_second_one_is_deleted()
+    public function when_an_element_is_deleted_all_succeeding_siblings_should_be_updated(): void
     {
         $group = Factory::of('Group')->create();
 
@@ -32,12 +17,16 @@ class DeleteSequenceableTest extends TestCase
 
         $secondItem->delete();
 
-        $this->assertEquals(1, $firstItem->refresh()->position);
-        $this->assertEquals(2, $thirdItem->refresh()->position);
+        self::assertEquals(1, $firstItem->refresh()->position);
+        self::assertEquals(2, $thirdItem->refresh()->position);
+
+        $firstItem->delete();
+
+        self::assertEquals(1, $thirdItem->refresh()->position);
     }
 
     /** @test */
-    public function when_all_objects_are_deleted_and_a_new_one_is_created_it_is_assigned_the_value_of_1()
+    public function when_all_objects_are_deleted_and_a_new_one_is_created_it_is_assigned_the_value_of_1(): void
     {
         $group = Factory::of('Group')->create();
 
@@ -53,7 +42,7 @@ class DeleteSequenceableTest extends TestCase
     }
 
     /** @test */
-    public function the_sequence_group_is_not_affected_when_an_object_is_deleted_in_another_group()
+    public function the_sequence_group_is_not_affected_when_an_object_is_deleted_in_another_group(): void
     {
         $group = Factory::of('Group')->create();
         $anotherGroup = Factory::of('Group')->create();
