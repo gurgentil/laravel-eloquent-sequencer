@@ -1,10 +1,9 @@
 <?php
 
-namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit;
+namespace Gurgentil\LaravelEloquentSequencer\Tests;
 
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\SequencingStrategy;
-use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
 class StrategyOnCreateTest extends TestCase
 {

@@ -1,9 +1,8 @@
 <?php
 
-namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit;
+namespace Gurgentil\LaravelEloquentSequencer\Tests;
 
 use Gurgentil\LaravelEloquentSequencer\SequencingStrategy;
-use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
 class SequencingStrategyTest extends TestCase
 {

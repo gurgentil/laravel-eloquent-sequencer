@@ -1,10 +1,9 @@
 <?php
 
-namespace Gurgentil\LaravelEloquentSequencer\Tests\Unit;
+namespace Gurgentil\LaravelEloquentSequencer\Tests;
 
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\Tests\Models\Item;
-use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
 class SequenceWithNoGroupTest extends TestCase
 {
