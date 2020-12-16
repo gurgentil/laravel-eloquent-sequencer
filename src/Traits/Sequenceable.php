@@ -261,9 +261,9 @@ trait Sequenceable
      */
     protected function isMovingUpInSequence(): bool
     {
-        $originalValue = $originalValue ?? $this->getOriginalSequenceValue();
+        $originalValue = $this->getOriginalSequenceValue();
 
-        return $originalValue && $originalValue < $this->getSequenceValue();
+        return ! is_null($originalValue) && $originalValue < $this->getSequenceValue();
     }
 
     /**
@@ -275,7 +275,7 @@ trait Sequenceable
     {
         $originalValue = $this->getOriginalSequenceValue();
 
-        return $originalValue && $originalValue > $this->getSequenceValue();
+        return ! is_null($originalValue) && $originalValue > $this->getSequenceValue();
     }
 
     /**
@@ -444,4 +444,13 @@ trait Sequenceable
      * @return bool
      */
     abstract public function isClean($attributes = null);
+
+    /**
+     * Get the model's original attribute values.
+     *
+     * @param  string|null  $key
+     * @param  mixed  $default
+     * @return mixed|array
+     */
+    abstract public function getOriginal($key = null, $default = null);
 }
