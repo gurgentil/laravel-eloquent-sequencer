@@ -263,7 +263,7 @@ trait Sequenceable
     {
         $originalValue = $this->getOriginalSequenceValue();
 
-        return !is_null($originalValue) && $originalValue < $this->getSequenceValue();
+        return ! is_null($originalValue) && $originalValue < $this->getSequenceValue();
     }
 
     /**
@@ -275,7 +275,7 @@ trait Sequenceable
     {
         $originalValue = $this->getOriginalSequenceValue();
 
-        return !is_null($originalValue) && $originalValue > $this->getSequenceValue();
+        return ! is_null($originalValue) && $originalValue > $this->getSequenceValue();
     }
 
     /**
