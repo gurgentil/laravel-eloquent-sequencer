@@ -444,4 +444,13 @@ trait Sequenceable
      * @return bool
      */
     abstract public function isClean($attributes = null);
+
+    /**
+     * Get the model's original attribute values.
+     *
+     * @param  string|null  $key
+     * @param  mixed  $default
+     * @return mixed|array
+     */
+    abstract public function getOriginal($key = null, $default = null);
 }
