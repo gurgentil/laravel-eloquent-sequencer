@@ -261,7 +261,7 @@ trait Sequenceable
      */
     protected function isMovingUpInSequence(): bool
     {
-        $originalValue = $originalValue ?? $this->getOriginalSequenceValue();
+        $originalValue = $this->getOriginalSequenceValue();
 
         return $originalValue && $originalValue < $this->getSequenceValue();
     }
