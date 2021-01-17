@@ -2,7 +2,6 @@
 
 namespace Gurgentil\LaravelEloquentSequencer\Tests;
 
-use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Models\Item;
 
 class SequenceableTest extends TestCase
