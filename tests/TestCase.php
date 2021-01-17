@@ -23,16 +23,15 @@ class TestCase extends OrchestraTestCase
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
     }
 
-    protected function createSequenceable(Group $sequence, int $amount = 1)
+    protected function createSequenceable(Group $sequence, ?int $position = null)
     {
-        $factory = Factory::of('Item');
+        $attributes = ['group_id' => $sequence->id];
 
-        if ($amount === 1) {
-            return $factory->create(['group_id' => $sequence->id]);
+        if (!is_null($position)) {
+            $attributes['position'] = $position;
         }
 
-        return $factory->times($amount)
-            ->create(['group_id' => $sequence->id]);
+        return Factory::of('Item')->create($attributes);
     }
 
     protected function createSequence()
