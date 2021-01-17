@@ -2,29 +2,29 @@
 
 namespace Gurgentil\LaravelEloquentSequencer\Tests;
 
-use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Models\Item;
 
 class ScopeSequencedTest extends TestCase
 {
     /** @test */
-    public function it_orders_records_by_sequence_value()
+    public function it_orders_elements_by_sequence_value(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $this->createSequenceable($sequence);
 
         $secondItem->update(['position' => 1]);
         $firstItem->update(['position' => 3]);
 
         $items = Item::sequenced()->get();
 
-        $this->assertCount(3, $items);
-
-        $this->assertEquals(2, $items->get(0)->id);
-        $this->assertEquals(3, $items->get(1)->id);
-        $this->assertEquals(1, $items->get(2)->id);
+        self::assertCount(3, $items);
+        $this->assertSequenced([
+            $items->get(0),
+            $items->get(1),
+            $items->get(2),
+        ]);
     }
 }
