@@ -26,7 +26,7 @@ class DeleteSequenceableTest extends TestCase
     }
 
     /** @test */
-    public function when_all_objects_are_deleted_and_a_new_one_is_created_it_is_assigned_the_value_of_1(): void
+    public function when_all_elements_are_deleted_and_a_new_one_is_created_it_is_assigned_the_value_of_1(): void
     {
         $group = Factory::of('Group')->create();
 
@@ -42,7 +42,7 @@ class DeleteSequenceableTest extends TestCase
     }
 
     /** @test */
-    public function the_sequence_group_is_not_affected_when_an_object_is_deleted_in_another_group(): void
+    public function the_sequence_group_is_not_affected_when_an_element_is_deleted_in_another_sequence(): void
     {
         $group = Factory::of('Group')->create();
         $anotherGroup = Factory::of('Group')->create();
