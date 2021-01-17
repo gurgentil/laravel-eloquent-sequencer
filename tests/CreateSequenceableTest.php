@@ -7,6 +7,18 @@ use Gurgentil\LaravelEloquentSequencer\Exceptions\SequenceValueOutOfBoundsExcept
 class CreateSequenceableTest extends TestCase
 {
     /** @test */
+    public function it_increments_the_sequence_value_as_elements_are_created(): void
+    {
+        $sequence = $this->createSequence();
+
+        $this->assertSequenced([
+            $this->createSequenceable($sequence),
+            $this->createSequenceable($sequence),
+            $this->createSequenceable($sequence),
+        ]);
+    }
+
+    /** @test */
     public function it_adds_an_element_to_the_start_of_the_sequence(): void
     {
         $sequence = $this->createSequence();
@@ -61,6 +73,24 @@ class CreateSequenceableTest extends TestCase
             $thirdItem,
             $newItem,
         ]);
+    }
+
+    /** @test */
+    public function the_sequence_is_not_affected_by_an_element_being_created_in_another_sequence(): void
+    {
+        $sequence = $this->createSequence();
+        $anotherSequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $firstFromTheOtherSequence = $this->createSequenceable($anotherSequence);
+        $secondItem = $this->createSequenceable($sequence);
+
+        $this->assertSequenced([
+            $firstItem,
+            $secondItem,
+        ]);
+
+        $this->assertSequenced([$firstFromTheOtherSequence]);
     }
 
     /** @test */
