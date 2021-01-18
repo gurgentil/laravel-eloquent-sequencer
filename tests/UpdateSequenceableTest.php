@@ -2,198 +2,213 @@
 
 namespace Gurgentil\LaravelEloquentSequencer\Tests;
 
-use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\Exceptions\SequenceValueOutOfBoundsException;
 
 class UpdateSequenceableTest extends TestCase
 {
     /** @test */
-    public function it_updates_4th_object_with_sequence_value_equal_to_2_and_move_the_group_around()
+    public function it_updates_4th_object_with_sequence_value_equal_to_2_and_move_the_group_around(): void
     {
-        $group = Factory::of('group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fourthItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fifthItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
 
         $fourthItem->update(['position' => 2]);
 
-        $this->assertEquals(1, $firstItem->refresh()->position);
-        $this->assertEquals(2, $fourthItem->refresh()->position);
-        $this->assertEquals(3, $secondItem->refresh()->position);
-        $this->assertEquals(4, $thirdItem->refresh()->position);
-        $this->assertEquals(5, $fifthItem->refresh()->position);
+        $this->assertSequenced([
+            $firstItem,
+            $fourthItem,
+            $secondItem,
+            $thirdItem,
+            $fifthItem,
+        ]);
     }
 
     /** @test */
-    public function it_updates_5th_object_with_sequence_value_equal_to_2_and_move_the_group_around()
+    public function it_updates_5th_object_with_sequence_value_equal_to_2_and_move_the_group_around(): void
     {
-        $group = Factory::of('group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fourthItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fifthItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
 
         $fifthItem->update(['position' => 2]);
 
-        $this->assertEquals(1, $firstItem->refresh()->position);
-        $this->assertEquals(2, $fifthItem->refresh()->position);
-        $this->assertEquals(3, $secondItem->refresh()->position);
-        $this->assertEquals(4, $thirdItem->refresh()->position);
-        $this->assertEquals(5, $fourthItem->refresh()->position);
+        $this->assertSequenced([
+            $firstItem,
+            $fifthItem,
+            $secondItem,
+            $thirdItem,
+            $fourthItem,
+        ]);
     }
 
     /** @test */
-    public function it_updates_3rd_object_with_sequence_value_equal_to_1_and_move_the_group_around()
+    public function it_updates_3rd_object_with_sequence_value_equal_to_1_and_move_the_group_around(): void
     {
-        $group = Factory::of('group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fourthItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fifthItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
 
         $thirdItem->update(['position' => 1]);
 
-        $this->assertEquals(1, $thirdItem->refresh()->position);
-        $this->assertEquals(2, $firstItem->refresh()->position);
-        $this->assertEquals(3, $secondItem->refresh()->position);
-        $this->assertEquals(4, $fourthItem->refresh()->position);
-        $this->assertEquals(5, $fifthItem->refresh()->position);
+        $this->assertSequenced([
+            $thirdItem,
+            $firstItem,
+            $secondItem,
+            $fourthItem,
+            $fifthItem,
+        ]);
     }
 
     /** @test */
-    public function it_updates_2nd_object_with_sequence_value_equal_to_4_and_move_the_group_around()
+    public function it_updates_2nd_object_with_sequence_value_equal_to_4_and_move_the_group_around(): void
     {
-        $group = Factory::of('group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fourthItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fifthItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
 
         $secondItem->update(['position' => 4]);
 
-        $this->assertEquals(1, $firstItem->refresh()->position);
-        $this->assertEquals(2, $thirdItem->refresh()->position);
-        $this->assertEquals(3, $fourthItem->refresh()->position);
-        $this->assertEquals(4, $secondItem->refresh()->position);
-        $this->assertEquals(5, $fifthItem->refresh()->position);
+        $this->assertSequenced([
+            $firstItem,
+            $thirdItem,
+            $fourthItem,
+            $secondItem,
+            $fifthItem,
+        ]);
     }
 
     /** @test */
-    public function it_updates_1st_object_with_sequence_value_equal_to_4_and_move_the_group_around()
+    public function it_updates_1st_object_with_sequence_value_equal_to_4_and_move_the_group_around(): void
     {
-        $group = Factory::of('group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fourthItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fifthItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
 
         $firstItem->update(['position' => 4]);
 
-        $this->assertEquals(1, $secondItem->refresh()->position);
-        $this->assertEquals(2, $thirdItem->refresh()->position);
-        $this->assertEquals(3, $fourthItem->refresh()->position);
-        $this->assertEquals(4, $firstItem->refresh()->position);
-        $this->assertEquals(5, $fifthItem->refresh()->position);
+        $this->assertSequenced([
+            $secondItem,
+            $thirdItem,
+            $fourthItem,
+            $firstItem,
+            $fifthItem,
+        ]);
     }
 
     /** @test */
-    public function it_updates_2nd_object_with_sequence_value_equal_to_5_and_move_the_group_around()
+    public function it_updates_2nd_object_with_sequence_value_equal_to_5_and_move_the_group_around(): void
     {
-        $group = Factory::of('group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fourthItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $fifthItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
 
         $secondItem->update(['position' => 5]);
 
-        $this->assertEquals(1, $firstItem->refresh()->position);
-        $this->assertEquals(2, $thirdItem->refresh()->position);
-        $this->assertEquals(3, $fourthItem->refresh()->position);
-        $this->assertEquals(4, $fifthItem->refresh()->position);
-        $this->assertEquals(5, $secondItem->refresh()->position);
+        $this->assertSequenced([
+            $firstItem,
+            $thirdItem,
+            $fourthItem,
+            $fifthItem,
+            $secondItem,
+        ]);
     }
 
     /** @test */
-    public function it_does_not_need_to_update_the_sequence_when_the_updated_object_receives_a_value_equal_to_its_current_value()
+    public function it_does_not_need_to_update_the_sequence_when_the_updated_object_receives_a_value_equal_to_its_current_value(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
 
-        $this->assertEquals(2, $secondItem->position);
+        $this->assertSequenceValue($secondItem, 2);
 
         $secondItem->update(['position' => 2]);
 
-        $this->assertEquals(1, $firstItem->refresh()->position);
-        $this->assertEquals(2, $secondItem->refresh()->position);
-        $this->assertEquals(3, $thirdItem->refresh()->position);
+        $this->assertSequenced([
+            $firstItem,
+            $secondItem,
+            $thirdItem,
+        ]);
     }
 
     /** @test */
-    public function when_a_sequence_is_updated_the_first_object_will_have_the_initial_value()
+    public function when_a_sequence_is_updated_the_first_object_will_have_the_initial_value(): void
     {
         config(['eloquentsequencer.initial_value' => 10]);
 
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
 
         $firstItem->update(['position' => 12]);
 
-        $this->assertEquals(10, $secondItem->refresh()->position);
-        $this->assertEquals(11, $thirdItem->refresh()->position);
-        $this->assertEquals(12, $firstItem->refresh()->position);
+        $this->assertSequenced([
+            $secondItem,
+            $thirdItem,
+            $firstItem,
+        ], 10);
     }
 
     /** @test */
-    public function it_throws_an_exception_when_the_object_updated_has_a_sequence_value_that_is_negative()
+    public function it_throws_an_exception_when_the_object_updated_has_a_sequence_value_that_is_negative(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
         $this->expectException(SequenceValueOutOfBoundsException::class);
 
-        $item = Factory::of('Item')->create(['group_id' => $group->id]);
+        $item = $this->createSequenceable($sequence);
 
         $item->update(['position' => -1]);
     }
 
     /** @test */
-    public function it_throws_an_exception_when_the_object_updated_has_a_sequence_value_equal_to_zero()
+    public function it_throws_an_exception_when_the_object_updated_has_a_sequence_value_equal_to_zero(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
         $this->expectException(SequenceValueOutOfBoundsException::class);
 
-        $item = Factory::of('Item')->create(['group_id' => $group->id]);
+        $item = $this->createSequenceable($sequence);
 
         $item->update(['position' => 0]);
     }
 
     /** @test */
-    public function it_throws_an_exception_when_the_object_updated_has_a_sequence_value_greater_than_the_last_value()
+    public function it_throws_an_exception_when_the_object_updated_has_a_sequence_value_greater_than_the_last_value(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $item = Factory::of('Item')->create(['group_id' => $group->id]);
-        Factory::of('Item')->create(['group_id' => $group->id]);
+        $item = $this->createSequenceable($sequence);
+        $this->createSequenceable($sequence);
 
         $this->expectException(SequenceValueOutOfBoundsException::class);
 
@@ -201,12 +216,12 @@ class UpdateSequenceableTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_exception_when_the_object_updated_has_a_sequence_value_greater_than_the_next_value()
+    public function it_throws_an_exception_when_the_object_updated_has_a_sequence_value_greater_than_the_next_value(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $item = Factory::of('Item')->create(['group_id' => $group->id]);
-        Factory::of('Item')->create(['group_id' => $group->id]);
+        $item = $this->createSequenceable($sequence);
+        $this->createSequenceable($sequence);
 
         $this->expectException(SequenceValueOutOfBoundsException::class);
 
@@ -214,16 +229,16 @@ class UpdateSequenceableTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_exception_when_the_updated_object_has_a_sequence_value_greater_than_the_next_value_and_is_currently_set_to_null()
+    public function it_throws_an_exception_when_the_updated_object_has_a_sequence_value_greater_than_the_next_value_and_is_currently_set_to_null(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $item = Factory::of('Item')->create(['group_id' => $group->id]);
-        Factory::of('Item')->create(['group_id' => $group->id]);
+        $item = $this->createSequenceable($sequence);
+        $this->createSequenceable($sequence);
 
         $item->update(['position' => null]);
 
-        $this->assertNull($item->refresh()->position);
+        self::assertNull($item->refresh()->position);
 
         $this->expectException(SequenceValueOutOfBoundsException::class);
 
@@ -231,30 +246,30 @@ class UpdateSequenceableTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_throw_an_exception_when_the_updated_object_has_a_sequence_value_equal_to_the_next_value_and_is_currently_set_to_null()
+    public function it_does_not_throw_an_exception_when_the_updated_object_has_a_sequence_value_equal_to_the_next_value_and_is_currently_set_to_null(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        Factory::of('Item')->create(['group_id' => $group->id]);
-        $item = Factory::of('Item')->create(['group_id' => $group->id]);
+        $this->createSequenceable($sequence);
+        $item = $this->createSequenceable($sequence);
 
         $item->update(['position' => null]);
 
-        $this->assertNull($item->refresh()->position);
+        self::assertNull($item->refresh()->position);
 
         $item->update(['position' => 2]);
 
-        $this->assertEquals(2, $item->refresh()->position);
+        $this->assertSequenceValue($item, 2);
     }
 
     /** @test */
-    public function it_throws_an_exception_when_the_updated_object_has_a_sequence_value_smaller_than_the_initial_value()
+    public function it_throws_an_exception_when_the_updated_object_has_a_sequence_value_smaller_than_the_initial_value(): void
     {
         config(['eloquentsequencer.initial_value' => 10]);
 
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $item = Factory::of('Item')->create(['group_id' => $group->id]);
+        $item = $this->createSequenceable($sequence);
 
         $this->expectException(SequenceValueOutOfBoundsException::class);
 
