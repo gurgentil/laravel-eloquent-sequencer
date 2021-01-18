@@ -7,28 +7,6 @@ use Gurgentil\LaravelEloquentSequencer\Exceptions\SequenceValueOutOfBoundsExcept
 class UpdateSequenceableTest extends TestCase
 {
     /** @test */
-    public function it_moves_an_element_towards_the_end_of_the_sequence(): void
-    {
-        $sequence = $this->createSequence();
-
-        $firstItem = $this->createSequenceable($sequence);
-        $secondItem = $this->createSequenceable($sequence);
-        $thirdItem = $this->createSequenceable($sequence);
-        $fourthItem = $this->createSequenceable($sequence);
-        $fifthItem = $this->createSequenceable($sequence);
-
-        $firstItem->update(['position' => 3]);
-
-        $this->assertSequenced([
-            $secondItem,
-            $thirdItem,
-            $firstItem,
-            $fourthItem,
-            $fifthItem,
-        ]);
-    }
-
-    /** @test */
     public function it_moves_an_element_towards_the_start_of_the_sequence(): void
     {
         $sequence = $this->createSequence();
@@ -47,6 +25,116 @@ class UpdateSequenceableTest extends TestCase
             $secondItem,
             $thirdItem,
             $fifthItem,
+        ]);
+    }
+
+    /** @test */
+    public function it_moves_the_last_element_towards_the_start_of_the_sequence(): void
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $fifthItem->update(['position' => 2]);
+
+        $this->assertSequenced([
+            $firstItem,
+            $fifthItem,
+            $secondItem,
+            $thirdItem,
+            $fourthItem,
+        ]);
+    }
+
+    /** @test */
+    public function it_moves_an_element_to_the_first_position_in_the_sequence(): void
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $thirdItem->update(['position' => 1]);
+
+        $this->assertSequenced([
+            $thirdItem,
+            $firstItem,
+            $secondItem,
+            $fourthItem,
+            $fifthItem,
+        ]);
+    }
+
+    /** @test */
+    public function it_moves_an_element_towards_the_end_of_the_sequence(): void
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $secondItem->update(['position' => 4]);
+
+        $this->assertSequenced([
+            $firstItem,
+            $thirdItem,
+            $fourthItem,
+            $secondItem,
+            $fifthItem,
+        ]);
+    }
+
+    /** @test */
+    public function it_moves_the_first_element_towards_the_end_of_the_sequence(): void
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $firstItem->update(['position' => 4]);
+
+        $this->assertSequenced([
+            $secondItem,
+            $thirdItem,
+            $fourthItem,
+            $firstItem,
+            $fifthItem,
+        ]);
+    }
+
+    /** @test */
+    public function it_moves_an_element_to_the_last_position_in_the_sequence(): void
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $secondItem->update(['position' => 5]);
+
+        $this->assertSequenced([
+            $firstItem,
+            $thirdItem,
+            $fourthItem,
+            $fifthItem,
+            $secondItem,
         ]);
     }
 
