@@ -27,7 +27,7 @@ class TestCase extends OrchestraTestCase
     {
         $attributes = ['group_id' => $sequence->id];
 
-        if (!is_null($position)) {
+        if (! is_null($position)) {
             $attributes['position'] = $position;
         }
 
