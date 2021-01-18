@@ -2,7 +2,6 @@
 
 namespace Gurgentil\LaravelEloquentSequencer\Tests;
 
-use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\ServiceProvider;
 use Gurgentil\LaravelEloquentSequencer\Tests\Models\Group;
 use Gurgentil\LaravelEloquentSequencer\Tests\Models\Item;
@@ -32,12 +31,12 @@ class TestCase extends OrchestraTestCase
             $attributes['position'] = $position;
         }
 
-        return Factory::of(Item::class)->create($attributes);
+        return Item::create($attributes);
     }
 
     protected function createSequence()
     {
-        return Factory::of(Group::class)->create();
+        return Group::create();
     }
 
     protected function assertSequenced(array $sequenceables, ?int $initialValue = 1): self
