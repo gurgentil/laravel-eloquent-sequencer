@@ -3,13 +3,12 @@
 namespace Gurgentil\LaravelEloquentSequencer\Tests\Commands;
 
 use Exception;
-use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
 class FlushSequenceValuesCommandTest extends TestCase
 {
     /** @test */
-    public function the_flush_command_requires_a_valid_model_name()
+    public function the_flush_command_requires_a_valid_model_name(): void
     {
         $this->expectException(Exception::class);
 
@@ -19,7 +18,7 @@ class FlushSequenceValuesCommandTest extends TestCase
     }
 
     /** @test */
-    public function the_flush_command_does_not_proceed_when_the_model_count_is_0()
+    public function the_flush_command_does_not_proceed_when_the_model_count_is_0(): void
     {
         $this->artisan('sequence:flush \\\Gurgentil\\\LaravelEloquentSequencer\\\Tests\\\Models\\\Item')
             ->expectsOutput('Nothing to update.')
@@ -27,48 +26,42 @@ class FlushSequenceValuesCommandTest extends TestCase
     }
 
     /** @test */
-    public function the_flush_command_does_not_update_values_that_are_already_null()
+    public function the_flush_command_does_not_update_values_that_are_already_null(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $items = Factory::of('Item')->times(4)->create(['group_id' => $group->id]);
-
-        $items->each(function ($item) {
-            $item->update(['position' => null]);
-
-            $this->assertNull($item->position);
-        });
+        $this->createSequenceable($sequence)
+            ->update(['position' => null]);
 
         $this->artisan('sequence:flush \\\Gurgentil\\\LaravelEloquentSequencer\\\Tests\\\Models\\\Item')
-            ->expectsOutput('Analyzing and flushing sequence values from 4 object(s).')
+            ->expectsOutput('Analyzing and flushing sequence values from 1 object(s).')
             ->expectsOutput('0 row(s) were updated.')
             ->assertExitCode(0);
     }
 
     /** @test */
-    public function the_flush_command_flushes_sequence_values()
+    public function the_flush_command_flushes_sequence_values(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
 
         $secondItem->update(['position' => null]);
-
         $thirdItem->update(['position' => null]);
 
-        $this->assertNotNull($firstItem->position);
-        $this->assertNull($secondItem->position);
-        $this->assertNull($thirdItem->position);
+        self::assertNotNull($firstItem->position);
+        self::assertNull($secondItem->position);
+        self::assertNull($thirdItem->position);
 
         $this->artisan('sequence:flush \\\Gurgentil\\\LaravelEloquentSequencer\\\Tests\\\Models\\\Item')
             ->expectsOutput('Analyzing and flushing sequence values from 3 object(s).')
             ->expectsOutPut('1 row(s) were updated.')
             ->assertExitCode(0);
 
-        $this->assertNull($firstItem->refresh()->position);
-        $this->assertNull($secondItem->refresh()->position);
-        $this->assertNull($thirdItem->refresh()->position);
+        self::assertNull($firstItem->refresh()->position);
+        self::assertNull($secondItem->refresh()->position);
+        self::assertNull($thirdItem->refresh()->position);
     }
 }
