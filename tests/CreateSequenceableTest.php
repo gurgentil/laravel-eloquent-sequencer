@@ -25,7 +25,7 @@ class CreateSequenceableTest extends TestCase
      * @test
      * @group InitialValue
      */
-    public function it_starts_the_sequence_at_a_predefined_value(): void
+    public function it_starts_the_sequence_at_a_predefined_initial_value(): void
     {
         config(['eloquentsequencer.initial_value' => 10]);
 
