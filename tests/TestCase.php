@@ -5,6 +5,7 @@ namespace Gurgentil\LaravelEloquentSequencer\Tests;
 use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\ServiceProvider;
 use Gurgentil\LaravelEloquentSequencer\Tests\Models\Group;
+use Gurgentil\LaravelEloquentSequencer\Tests\Models\Item;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
@@ -46,6 +47,13 @@ class TestCase extends OrchestraTestCase
 
             self::assertEquals($expectedPosition, $sequenceable->refresh()->position);
         });
+
+        return $this;
+    }
+
+    protected function assertSequenceValue(Item $sequenceable, int $expectedValue): self
+    {
+        self::assertEquals($expectedValue, $sequenceable->refresh()->position);
 
         return $this;
     }

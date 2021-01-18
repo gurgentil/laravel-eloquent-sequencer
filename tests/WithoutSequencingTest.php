@@ -2,60 +2,58 @@
 
 namespace Gurgentil\LaravelEloquentSequencer\Tests;
 
-use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
-
 class WithoutSequencingTest extends TestCase
 {
     /** @test */
-    public function without_sequencing_works_on_deletes()
+    public function without_sequencing_works_on_deletes(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
 
         $firstItem->withoutSequencing()
             ->delete();
 
-        $this->assertEquals(2, $secondItem->refresh()->position);
+        $this->assertSequenceValue($secondItem, 2);
     }
 
     /** @test */
-    public function without_sequencing_works_on_updates()
+    public function without_sequencing_works_on_updates(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
 
         $secondItem->withoutSequencing()
             ->update(['position' => 1]);
 
-        $this->assertEquals(1, $secondItem->refresh()->position);
-        $this->assertEquals(1, $firstItem->refresh()->position);
+        $this->assertSequenceValue($secondItem, 1);
+        $this->assertSequenceValue($firstItem, 1);
     }
 
     /** @test */
-    public function without_sequencing_should_not_affect_following_operations()
+    public function without_sequencing_disables_sequencing_only_for_the_current_operation(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
 
         $secondItem->withoutSequencing()
             ->update(['position' => 1]);
 
-        $this->assertEquals(1, $secondItem->refresh()->position);
-        $this->assertEquals(1, $firstItem->refresh()->position);
-        $this->assertEquals(3, $thirdItem->refresh()->position);
+        $this->assertSequenceValue($secondItem, 1);
+        $this->assertSequenceValue($firstItem, 1);
+        $this->assertSequenceValue($thirdItem, 3);
 
         $secondItem->update(['position' => 2]);
         $thirdItem->update(['position' => 2]);
 
-        $this->assertEquals(1, $firstItem->refresh()->position);
-        $this->assertEquals(2, $thirdItem->refresh()->position);
-        $this->assertEquals(3, $secondItem->refresh()->position);
+        $this->assertSequenceValue($firstItem, 1);
+        $this->assertSequenceValue($thirdItem, 2);
+        $this->assertSequenceValue($secondItem, 3);
     }
 }
