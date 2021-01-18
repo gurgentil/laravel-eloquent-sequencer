@@ -19,6 +19,24 @@ class CreateSequenceableTest extends TestCase
     }
 
     /** @test */
+    public function it_starts_the_sequence_at_a_predefined_value(): void
+    {
+        config(['eloquentsequencer.initial_value' => 10]);
+
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+
+        $this->assertSequenced([
+            $firstItem,
+            $secondItem,
+            $thirdItem,
+        ], 10);
+    }
+
+    /** @test */
     public function it_adds_an_element_to_the_start_of_the_sequence(): void
     {
         $sequence = $this->createSequence();

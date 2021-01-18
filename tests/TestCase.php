@@ -40,10 +40,10 @@ class TestCase extends OrchestraTestCase
         return Factory::of('Group')->create();
     }
 
-    protected function assertSequenced(array $sequenceables): self
+    protected function assertSequenced(array $sequenceables, ?int $initialValue = 1): self
     {
-        collect($sequenceables)->each(function ($sequenceable, $index) {
-            $expectedPosition = $index + 1;
+        collect($sequenceables)->each(function ($sequenceable, $index) use ($initialValue) {
+            $expectedPosition = $index + $initialValue;
 
             self::assertEquals($expectedPosition, $sequenceable->refresh()->position);
         });

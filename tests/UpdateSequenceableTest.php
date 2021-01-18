@@ -146,6 +146,24 @@ class UpdateSequenceableTest extends TestCase
     }
 
     /** @test */
+    public function when_a_sequence_is_updated_the_first_object_will_have_the_initial_value()
+    {
+        config(['eloquentsequencer.initial_value' => 10]);
+
+        $group = Factory::of('Group')->create();
+
+        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $thirdItem = Factory::of('Item')->create(['group_id' => $group->id]);
+
+        $firstItem->update(['position' => 12]);
+
+        $this->assertEquals(10, $secondItem->refresh()->position);
+        $this->assertEquals(11, $thirdItem->refresh()->position);
+        $this->assertEquals(12, $firstItem->refresh()->position);
+    }
+
+    /** @test */
     public function it_throws_an_exception_when_the_object_updated_has_a_sequence_value_that_is_negative()
     {
         $group = Factory::of('Group')->create();
