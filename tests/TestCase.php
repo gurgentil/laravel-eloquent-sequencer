@@ -32,12 +32,12 @@ class TestCase extends OrchestraTestCase
             $attributes['position'] = $position;
         }
 
-        return Factory::of('Item')->create($attributes);
+        return Factory::of(Item::class)->create($attributes);
     }
 
     protected function createSequence()
     {
-        return Factory::of('Group')->create();
+        return Factory::of(Group::class)->create();
     }
 
     protected function assertSequenced(array $sequenceables, ?int $initialValue = 1): self
