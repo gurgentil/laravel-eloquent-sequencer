@@ -2,7 +2,6 @@
 
 namespace Gurgentil\LaravelEloquentSequencer\Tests\Strategies;
 
-use Facades\Gurgentil\LaravelEloquentSequencer\Tests\Factories\Factory;
 use Gurgentil\LaravelEloquentSequencer\SequencingStrategy;
 use Gurgentil\LaravelEloquentSequencer\Tests\TestCase;
 
@@ -12,51 +11,51 @@ class StrategyOnCreateTest extends TestCase
      * @test
      * @group Strategy
      */
-    public function strategy_set_to_on_create_enables_sequencing_on_create()
+    public function strategy_set_to_on_create_enables_sequencing_on_create(): void
     {
         config(['eloquentsequencer.strategy' => SequencingStrategy::ON_CREATE]);
 
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $item = $this->createSequenceable($sequence);
 
-        $this->assertEquals(1, $firstItem->refresh()->position);
+        $this->assertSequenceValue($item, 1);
     }
 
     /**
      * @test
      * @group Strategy
      */
-    public function strategy_set_to_on_create_disables_sequencing_on_update()
+    public function strategy_set_to_on_create_disables_sequencing_on_update(): void
     {
-        $group = Factory::of('group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
 
         config(['eloquentsequencer.strategy' => SequencingStrategy::ON_CREATE]);
 
         $secondItem->update(['position' => 1]);
 
-        $this->assertEquals(1, $firstItem->refresh()->position);
-        $this->assertEquals(1, $secondItem->refresh()->position);
+        $this->assertSequenceValue($firstItem, 1);
+        $this->assertSequenceValue($secondItem, 1);
     }
 
     /**
      * @test
      * @group Strategy
      */
-    public function strategy_set_to_on_create_disables_sequencing_on_delete()
+    public function strategy_set_to_on_create_disables_sequencing_on_delete(): void
     {
-        $group = Factory::of('Group')->create();
+        $sequence = $this->createSequence();
 
-        $firstItem = Factory::of('Item')->create(['group_id' => $group->id]);
-        $secondItem = Factory::of('Item')->create(['group_id' => $group->id]);
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
 
         config(['eloquentsequencer.strategy' => SequencingStrategy::ON_CREATE]);
 
         $firstItem->delete();
 
-        $this->assertEquals(2, $secondItem->refresh()->position);
+        $this->assertSequenceValue($secondItem, 2);
     }
 }
