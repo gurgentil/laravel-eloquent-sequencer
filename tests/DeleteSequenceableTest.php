@@ -25,7 +25,10 @@ class DeleteSequenceableTest extends TestCase
         $this->assertSequenced([$thirdItem]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group InitialValue
+     */
     public function when_all_elements_are_deleted_and_a_new_one_is_created_it_is_assigned_the_value_of_1(): void
     {
         $sequence = $this->createSequence();

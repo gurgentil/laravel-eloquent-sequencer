@@ -6,7 +6,10 @@ use Gurgentil\LaravelEloquentSequencer\Exceptions\SequenceValueOutOfBoundsExcept
 
 class CreateSequenceableTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @group InitialValue
+     */
     public function it_increments_the_sequence_value_as_elements_are_created(): void
     {
         $sequence = $this->createSequence();
@@ -18,7 +21,10 @@ class CreateSequenceableTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group InitialValue
+     */
     public function it_starts_the_sequence_at_a_predefined_value(): void
     {
         config(['eloquentsequencer.initial_value' => 10]);
@@ -111,7 +117,10 @@ class CreateSequenceableTest extends TestCase
         $this->assertSequenced([$firstFromTheOtherSequence]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group SequenceValueOutOfBoundsException
+     */
     public function it_throws_an_exception_when_the_element_is_created_with_a_negative_sequence_value(): void
     {
         $sequence = $this->createSequence();
@@ -121,7 +130,10 @@ class CreateSequenceableTest extends TestCase
         $this->createSequenceable($sequence, -1);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group SequenceValueOutOfBoundsException
+     */
     public function it_throws_an_exception_when_the_element_is_created_with_a_sequence_value_equal_to_zero(): void
     {
         $sequence = $this->createSequence();
@@ -131,7 +143,11 @@ class CreateSequenceableTest extends TestCase
         $this->createSequenceable($sequence, 0);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group SequenceValueOutOfBoundsException
+     * @group NextValue
+     */
     public function it_throws_an_exception_when_the_element_is_created_with_a_sequence_value_greater_than_the_next_value(): void
     {
         $sequence = $this->createSequence();
@@ -144,7 +160,11 @@ class CreateSequenceableTest extends TestCase
         $this->createSequenceable($sequence, 4);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group SequenceValueOutOfBoundsException
+     * @group InitialValue
+     */
     public function it_throws_an_exception_when_the_element_is_created_with_a_sequence_value_smaller_than_the_initial_value(): void
     {
         config(['eloquentsequencer.initial_value' => 10]);
