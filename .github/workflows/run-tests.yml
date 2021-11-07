@@ -15,7 +15,7 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
         include:
           - laravel: 8.*
-            testbench: 6.*
+            testbench: ^6.15
           - laravel: 7.*
             testbench: 5.*
           - laravel: 6.*
@@ -37,7 +37,8 @@ jobs:
           coverage: xdebug
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+          composer require "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
       - name: Execute tests
         run: vendor/bin/phpunit --coverage-text
