@@ -13,7 +13,7 @@ jobs:
       - name: Run php-cs-fixer
         uses: docker://oskarstark/php-cs-fixer-ga
         with:
-          args: --config=.php_cs --allow-risky=yes
+          args: --config=.php-cs-fixer.php --allow-risky=yes
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'style: apply php-cs-fixer changes'
