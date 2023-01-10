@@ -65,6 +65,12 @@ trait Sequenceable
             return;
         }
 
+        if (! $this->shouldBeSequenced) {
+            $this->shouldBeSequenced = true;
+
+            return;
+        }
+        
         if (is_null($value)) {
             $this->{static::getSequenceColumnName()} = $this->getNextSequenceValue();
         }
