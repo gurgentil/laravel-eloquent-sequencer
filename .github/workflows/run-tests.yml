@@ -34,11 +34,15 @@ jobs:
           - laravel: 10.*
             php: 7.2
           - laravel: 9.*
+            php: 8.2
+          - laravel: 9.*
             php: 7.4
           - laravel: 9.*
             php: 7.3
           - laravel: 9.*
             php: 7.2
+          - laravel: 8.*
+            php: 8.2
           - laravel: 8.*
             php: 7.2
           - laravel: 7.*
