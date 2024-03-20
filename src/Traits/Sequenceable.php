@@ -280,6 +280,43 @@ trait Sequenceable
     }
 
     /**
+     * Move the position of the model up.
+     *
+     *
+     * @param int $by The amount by which the position should be moved up
+     *
+     * @return void
+     */
+    public function moveUp(int $by = 1)
+    {
+        $this->decrement(static::getSequenceColumnName(), $by);
+    }
+
+    /**
+     * Move the position of the model down.
+     *
+     * @param int $by The amount by which the position should be moved down
+     *
+     * @return void
+     */
+    public function moveDown(int $by = 1)
+    {
+        $this->increment(static::getSequenceColumnName(), $by);
+    }
+
+    /**
+     * Move a model to a new position.
+     *
+     * @param int $position The new position for the model.
+     *
+     * @return void
+     */
+    public function moveToPosition(int $position)
+    {
+        $this->update([static::getSequenceColumnName() => $position]);
+    }
+
+    /**
      * Indicate if model is affected by the repositioning of another model in the sequence.
      *
      * @param Model $model
