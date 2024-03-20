@@ -20,7 +20,7 @@ composer require gurgentil/laravel-eloquent-sequencer
 To publish the configuration file run:
 
 ```bash
-php artisan vendor:publish --provider="Gurgentil\LaravelEloquentSequencer\LaravelEloquentSequencerServiceProvider"
+php artisan vendor:publish --provider="Gurgentil\LaravelEloquentSequencer\ServiceProvider"
 ```
 
 ### Configuration parameters
