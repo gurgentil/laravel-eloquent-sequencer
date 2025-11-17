@@ -302,4 +302,148 @@ class UpdateSequenceableTest extends TestCase
 
         $item->update(['position' => 9]);
     }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function move_up_works_like_model_update_on_position_decremented_by_one()
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $fourthItem->moveUp();
+
+        $this->assertSequenced([
+            $firstItem,
+            $secondItem,
+            $fourthItem,
+            $thirdItem,
+            $fifthItem,
+        ]);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function move_down_works_like_model_update_on_position_incremented_by_one()
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $fourthItem->moveDown();
+
+        $this->assertSequenced([
+            $firstItem,
+            $secondItem,
+            $thirdItem,
+            $fifthItem,
+            $fourthItem,
+        ]);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function move_up_by_amount_works_like_model_update_on_position_decremented_by_one()
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $fourthItem->moveUp(2);
+
+        $this->assertSequenced([
+            $firstItem,
+            $fourthItem,
+            $secondItem,
+            $thirdItem,
+            $fifthItem,
+        ]);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function move_down_by_amount_works_like_model_update_on_position_incremented_by_one()
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $thirdItem->moveDown(2);
+
+        $this->assertSequenced([
+            $firstItem,
+            $secondItem,
+            $fourthItem,
+            $fifthItem,
+            $thirdItem,
+        ]);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function move_to_position_works_like_model_update_on_position_incremented_by_one()
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $fourthItem->moveToPosition(1);
+
+        $this->assertSequenced([
+            $fourthItem,
+            $firstItem,
+            $secondItem,
+            $thirdItem,
+            $fifthItem,
+        ]);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function move_up_to_position_out_of_bounds_fails()
+    {
+        $sequence = $this->createSequence();
+
+        $firstItem = $this->createSequenceable($sequence);
+        $secondItem = $this->createSequenceable($sequence);
+        $thirdItem = $this->createSequenceable($sequence);
+        $fourthItem = $this->createSequenceable($sequence);
+        $fifthItem = $this->createSequenceable($sequence);
+
+        $this->expectException(SequenceValueOutOfBoundsException::class);
+
+        $firstItem->moveUp();
+    }
 }
